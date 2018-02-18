@@ -1,0 +1,15 @@
+#netbeans specific
+
+target
+nbproject/private
+src/main/webapp/angular
+
+
+#!nbproject/project.properties
+#!nbproject/project.xml
+derby.log
+
+#java specific
+*.class
+nbproject/project.properties
+/nb-configuration.xml
