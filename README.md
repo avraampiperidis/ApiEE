@@ -270,7 +270,6 @@ public class DepartmentResource extends ApiEEResource<Department> {
 }
 ```
 #### Todo expected Results
-<br>
 <b>And lets see what we can do with this</b>. <br>
 <b>GET</b> ```departments/``` -> will return a json list with all department objects.<br>
 Create a department.(lets suppose we have an organization with id 1)<br>
