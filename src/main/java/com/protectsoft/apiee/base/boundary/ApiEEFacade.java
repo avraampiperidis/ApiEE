@@ -34,7 +34,7 @@ public abstract class ApiEEFacade<T extends BaseEntity> implements IRepository<T
     
     private final  Class<T> entityClass;
     
-    private final MasterDetailService masterDetailService;
+    protected final MasterDetailService masterDetailService;
     
     public ApiEEFacade(Class clazz) {
         this.entityClass = clazz;

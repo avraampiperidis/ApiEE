@@ -1,31 +1,24 @@
 package com.protectsoft.apiee.core.masterdetail;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
-import com.protectsoft.apiee.base.interfaces.IMasterDetail;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @param <M>
- * @param <D>
  */
-public class MasterDetailService<M extends BaseEntity,D extends BaseEntity> implements IMasterDetail<M,D> {
+public class MasterDetailService {
     
-    public MasterDetailService() {}
-
-    @Override
-    public void setChild(M m, D d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private final List<MasterDetail<?,?>> relations;
+    
+    public MasterDetailService() {
+        this.relations = new ArrayList<>();
     }
-
-    @Override
-    public D getChild(M m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public <M extends BaseEntity,D extends BaseEntity> void addRelation(Class masterClass,Class detailClass,MasterDetailFunction<M,D> function,MoveOption option) {
+        MasterDetail<M,D> masterDetalRelation = new MasterDetail<>(masterClass,detailClass,function,option);
+        this.relations.add(masterDetalRelation);
     }
-
-    @Override
-    public List<D> getChilds(M m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }
