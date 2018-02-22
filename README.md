@@ -1,6 +1,7 @@
 # ApiEE Java EE Web Framework
 a Java EE Web Framework  to develop java ee web apps fast.
-jax-rs,CDI,EJB,JPA2
+jax-rs,CDI,EJB,JPA2 <br>
+[![Build Status](https://travis-ci.org/avraampiperidis/ApiEE.svg?branch=master)](https://travis-ci.org/avraampiperidis/ApiEE)
 
 - [x] On Early development! 
 - [x] Update README.md with examples/tutorials(Jax-rs,Ejb,Master-Details)
