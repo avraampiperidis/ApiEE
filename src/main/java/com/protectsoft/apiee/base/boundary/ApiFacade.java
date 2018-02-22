@@ -8,7 +8,9 @@ import com.protectsoft.apiee.core.CountedList;
 import com.protectsoft.apiee.core.annotations.NamedDataSource;
 import com.protectsoft.apiee.core.exceptions.EntityException;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
+import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailService;
+import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -26,20 +28,36 @@ import javax.validation.ValidatorFactory;
  *
  * @param <T>
  */
-public abstract class ApiEEFacade<T extends BaseEntity> implements IRepository<T> , IValidation<T,T> {
+public abstract class ApiFacade<T extends BaseEntity> extends Context implements IRepository<T> , IValidation<T,T> {
        
     @Inject
     @NamedDataSource        
     private EntityManager em;
     
     private final  Class<T> entityClass;
+    private final MasterDetailService masterDetailService;
     
-    protected final MasterDetailService masterDetailService;
-    
-    public ApiEEFacade(Class clazz) {
+    public ApiFacade(Class clazz) {
         this.entityClass = clazz;
         masterDetailService = new MasterDetailService();
     }
+    
+    @Override
+    protected ApiFacade<T> getService() {
+        return this;
+    }
+
+    public void addDetail(Class<T> masterClass, Class<T> detailClass, MasterDetailFunction<T, T> masterDetailFunction, MoveOption moveOption) {
+        if(!masterClass.equals(detailClass)) {
+            throw new RuntimeException("master and detail class must be equals, otherwise provide the facade service of the detail class");
+        }
+        addDetail(masterClass, detailClass, masterDetailFunction,this,moveOption);
+    }
+     
+    public void addDetail(Class<T> aClass, Class<T> aClass0, MasterDetailFunction<T, T> masterDetailFunction, ApiFacade<T> detailService, MoveOption moveOption) {
+        this.masterDetailService.<T,T>addDetail(aClass, aClass0, masterDetailFunction,detailService, moveOption);
+    }
+
     
     
     /**
@@ -144,6 +162,5 @@ public abstract class ApiEEFacade<T extends BaseEntity> implements IRepository<T
     public String getEntitySimpleName() {
         return entityClass.getSimpleName();
     }
-   
 
 }
