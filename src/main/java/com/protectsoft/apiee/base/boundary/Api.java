@@ -9,7 +9,6 @@ import com.protectsoft.apiee.core.annotations.NamedDataSource;
 import com.protectsoft.apiee.core.exceptions.EntityException;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
-import com.protectsoft.apiee.core.masterdetail.MasterDetailService;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import java.util.List;
 import java.util.Objects;
@@ -25,38 +24,40 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- *
+ * @author Avraam Piperidis
  * @param <T>
  */
-public abstract class ApiFacade<T extends BaseEntity> extends Context implements IRepository<T> , IValidation<T,T> {
+public abstract class Api<T extends BaseEntity> extends Context<T>  implements IRepository<T> , IValidation<T,T> {
        
     @Inject
     @NamedDataSource        
     private EntityManager em;
-    
+        
     private final  Class<T> entityClass;
-    private final MasterDetailService masterDetailService;
     
-    public ApiFacade(Class clazz) {
+    public Api(Class clazz) {
+        if(!super.isClassInstance(BaseEntity.class,clazz)) {
+            throw new RuntimeException("Class must be type of BaseEntity");
+        } 
         this.entityClass = clazz;
-        masterDetailService = new MasterDetailService();
     }
+    
     
     @Override
-    protected ApiFacade<T> getService() {
+    public Api<T> getService() {
         return this;
     }
+   
+    @Override
+    public void setParent() {
+        setParent(this);
+    }
 
-    public void addDetail(Class<T> masterClass, Class<T> detailClass, MasterDetailFunction<T, T> masterDetailFunction, MoveOption moveOption) {
-        if(!masterClass.equals(detailClass)) {
-            throw new RuntimeException("master and detail class must be equals, otherwise provide the facade service of the detail class");
-        }
-        addDetail(masterClass, detailClass, masterDetailFunction,this,moveOption);
-    }
      
-    public void addDetail(Class<T> aClass, Class<T> aClass0, MasterDetailFunction<T, T> masterDetailFunction, ApiFacade<T> detailService, MoveOption moveOption) {
-        this.masterDetailService.<T,T>addDetail(aClass, aClass0, masterDetailFunction,detailService, moveOption);
-    }
+//    public void addDetail(Class<T> aClass, Class<T> aClass0, MasterDetailFunction<T, T> masterDetailFunction, Api<T> detailService, MoveOption moveOption) {
+//        //this.masterDetailService.<T,T>addDetail(aClass, aClass0, masterDetailFunction,detailService, moveOption);
+//        super.addDetail(aClass, aClass0, masterDetailFunction, detailService, moveOption);
+//    }
 
     
     
@@ -163,4 +164,5 @@ public abstract class ApiFacade<T extends BaseEntity> extends Context implements
         return entityClass.getSimpleName();
     }
 
+    
 }

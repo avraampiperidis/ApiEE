@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.ApiFacade;
+import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.core.Response;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.UriInfo;
 public abstract class ApiViewOnlyResource<T extends BaseEntity> extends 
         ApiResource <T>  {
 
-    public ApiViewOnlyResource(ApiFacade<T> service) {
+    public ApiViewOnlyResource(Api<T> service) {
         super(service);
     }
 

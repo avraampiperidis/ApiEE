@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.ApiFacade;
+import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.interfaces.IReposirotyResource;
 import com.protectsoft.apiee.core.CountedList;
@@ -20,13 +20,13 @@ import javax.ws.rs.core.UriInfo;
 
 public abstract class BaseResource<T extends BaseEntity>  implements IReposirotyResource<T>  {
     
-    private final  ApiFacade<T> service;
+    private final  Api<T> service;
         
-    public BaseResource(ApiFacade<T> t) {
+    public BaseResource(Api<T> t) {
         this.service = t;
     }
     
-    public ApiFacade<T> getService() {
+    public Api<T> getService() {
         return this.service;
     }
     

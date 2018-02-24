@@ -9,7 +9,7 @@ import java.util.List;
  * @param <M>
  * @param <D>
  */
-public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements IMasterDetailRelation<M,D> {
+public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
     
     private Class<M> masterClass;
     private Class<D> childClass;
@@ -28,19 +28,6 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
         this.function = function;
     }
 
-    @Override
-    public List<D> getDetails(M master) {
-        return null;
-    }
-
-    @Override
-    public D getDetail(M master) {
-        return null;
-    }
-
-    @Override
-    public void setMaster(M master, D detail) {
-    }
 
     /**
      * @return the function

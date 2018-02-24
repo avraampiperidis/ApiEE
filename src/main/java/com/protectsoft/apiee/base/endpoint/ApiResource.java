@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.ApiFacade;
+import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -15,7 +15,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> {
     
     
-    public ApiResource(ApiFacade<T> service) {
+    public ApiResource(Api<T> service) {
        super(service);
     }
     

@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.ApiFacade;
+import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.interfaces.IReposirotyResource;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
@@ -18,7 +18,7 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
         extends BaseSubResource<M, D>
         implements IReposirotyResource<D> {
     
-    public ApiSubResource(ApiFacade<M> api,Long id) {
+    public ApiSubResource(Api<M> api,Long id) {
     }
 
     @Override
