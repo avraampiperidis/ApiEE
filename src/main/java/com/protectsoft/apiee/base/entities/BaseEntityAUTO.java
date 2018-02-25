@@ -13,7 +13,8 @@ public abstract class BaseEntityAUTO extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
      
-    public BaseEntityAUTO() {}
+    public BaseEntityAUTO() {
+    }
      
     public BaseEntityAUTO(Long id) {
         this.id = id;

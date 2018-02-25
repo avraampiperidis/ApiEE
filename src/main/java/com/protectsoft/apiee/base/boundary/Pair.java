@@ -15,9 +15,9 @@ public class Pair<L extends MasterDetail,R extends Api<?>> {
     private R api;
     
     
-    public Pair(L l,R r) {
-        this.masterDetailHolder = l;
-        this.api = r;
+    public Pair(L left,R right) {
+        this.masterDetailHolder = left;
+        this.api = right;
     }
 
     /**

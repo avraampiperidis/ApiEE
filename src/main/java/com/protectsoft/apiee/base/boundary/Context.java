@@ -23,7 +23,7 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
         this.setParent();
     }
     
-    abstract public void setParent();
+    abstract void setParent();
     
     @Override
     public abstract Api<T> getService();
@@ -34,9 +34,8 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     }
     
     
-    @Override
-    public void setParent(Api<T> parent) {
-        this.setParent(null, parent);
+    <M extends BaseEntity> void setParent(Api<M> parent) {
+        this.setParent(null,(Api<T>) parent);
     }
     
     
@@ -46,8 +45,8 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     }
     
     
-    public void addDetail(Class<T> masterClass, Class<T> detailClass, MasterDetailFunction<T, T> masterDetailFunction, Api<T> detailService, MoveOption moveOption) {
-        this.addChild(new MasterDetail<T,T>(masterClass,detailClass,masterDetailFunction,moveOption),detailService);
+    public <D extends BaseEntity> void addChildDetail(Class<T> masterClass, Class<D> detailClass, MasterDetailFunction<T, D> masterDetailFunction, Api<D> detailService, MoveOption moveOption) {
+        this.addChild(new MasterDetail<>(masterClass,detailClass,masterDetailFunction,moveOption),detailService);
     }
     
     
@@ -60,37 +59,15 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     }
 
     
-    /**
-     * 
-     * @param clazz 
-     * @param targetClass 
-     * @return 
-     */
-    public boolean isClassInstance(Class clazz,Class targetClass) {
-        if(clazz.equals(targetClass)) {
-            return true;
-        }
-        if(clazz.equals(Object.class)) {
-            return false;
-        }
-        return isClassInstance(clazz,targetClass.getSuperclass());
-    }
-    
-    
-    private void addChild(MasterDetail<T,T> mDetail,Api<T> child) {
-        child.setParent((Api<T>)this);
+    private <D extends BaseEntity> void addChild(MasterDetail<T,D> mDetail,Api<D> child) {
+        child.setParent((Api<D>)this);
         if(!this.childs.stream().anyMatch(x->Objects.equals(x.getApi(),child))) {
-            this.childs.add(new Pair<>(mDetail,child));
+            this.childs.add(new Pair(mDetail,child));
         }     
     }
     
-    private void setParent(MasterDetail<T,T> mDetail,Api<T> parent) {
-        this.parent = parent;
-        if(!parent.equals(this)) {
-            if(!this.parent.getChilds().stream().anyMatch(x->Objects.equals(x.getApi(),(Api<T>)this))) {
-                this.parent.getChilds().add(new Pair<>(mDetail,(Api<T>)this));
-            }
-        }
+    <D extends BaseEntity> void setParent(MasterDetail<T,D> mDetail,Api<T> parent) {
+         this.parent = parent;
     }
     
 }

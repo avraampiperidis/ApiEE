@@ -1,7 +1,5 @@
-package com.protectsoft.apiee.base.apicontext;
+package com.protectsoft.apiee.base.boundary;
 
-import com.protectsoft.apiee.base.boundary.Api;
-import com.protectsoft.apiee.base.boundary.Context;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

@@ -4,12 +4,11 @@ package com.protectsoft.apiee.base.boundary;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.interfaces.IRepository;
 import com.protectsoft.apiee.base.interfaces.IValidation;
+import com.protectsoft.apiee.core.ApiUtils;
 import com.protectsoft.apiee.core.CountedList;
 import com.protectsoft.apiee.core.annotations.NamedDataSource;
 import com.protectsoft.apiee.core.exceptions.EntityException;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
-import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
-import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -36,8 +35,8 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     private final  Class<T> entityClass;
     
     public Api(Class clazz) {
-        if(!super.isClassInstance(BaseEntity.class,clazz)) {
-            throw new RuntimeException("Class must be type of BaseEntity");
+        if(!ApiUtils.isClassInstance(BaseEntity.class,clazz)) {
+            throw new RuntimeException("Class must be type of BaseEntity or any subclass");
         } 
         this.entityClass = clazz;
     }
@@ -49,17 +48,10 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     }
    
     @Override
-    public void setParent() {
+    final void setParent() {
         setParent(this);
     }
 
-     
-//    public void addDetail(Class<T> aClass, Class<T> aClass0, MasterDetailFunction<T, T> masterDetailFunction, Api<T> detailService, MoveOption moveOption) {
-//        //this.masterDetailService.<T,T>addDetail(aClass, aClass0, masterDetailFunction,detailService, moveOption);
-//        super.addDetail(aClass, aClass0, masterDetailFunction, detailService, moveOption);
-//    }
-
-    
     
     /**
      * @return the em
@@ -164,5 +156,6 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
         return entityClass.getSimpleName();
     }
 
+   
     
 }

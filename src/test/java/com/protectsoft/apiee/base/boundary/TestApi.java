@@ -1,6 +1,5 @@
-package com.protectsoft.apiee.base.apicontext;
+package com.protectsoft.apiee.base.boundary;
 
-import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import com.protectsoft.apiee.base.entities.BaseEntitySequence;
@@ -17,7 +16,7 @@ public class TestApi {
     
     @Test(expected = RuntimeException.class)
     public void testApiEx() {
-        Api<BaseEntity> api = new Api<BaseEntity>(String.class) {};
+        new Api<BaseEntity>(String.class) {};
     }
     
     
@@ -47,12 +46,13 @@ public class TestApi {
         Api<BaseEntity> api = new Api<BaseEntity>(BaseEntityAUTO.class) {};
         Api<BaseEntity> parent = getMockApi(BaseEntitySequence.class);
         assertTrue(parent.getChilds().isEmpty());
-        api.setParent(parent);
+        parent.addChild(api);
         assertTrue(!api.getParent().equals(api));
         assertEquals(parent,api.getParent());
         assertEquals(parent,api.getParent().getParent());
         assertEquals(api,parent.getChilds().get(0).getApi());
         assertTrue(api.getChilds().isEmpty());
+        
     }
     
     
@@ -103,7 +103,6 @@ public class TestApi {
     
     
     private <T extends BaseEntity> Api<T> getMockApi(Class clazz) {
-        Api<T> api = new Api<T>(clazz) {};
-        return api;
+        return new Api<T>(clazz) {};
     }
 }

@@ -21,7 +21,7 @@ import org.eclipse.persistence.jaxb.JAXBContextProperties;
  *
  * static Util helper methods
  */
-public class ApiEEUtils {       
+public class ApiUtils {       
     
     public static List<?> getLimitOffset(List<?> list,int limit,int offset){
         final List finalList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ApiEEUtils {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             return marshaller;
         } catch (JAXBException ex) {
-            Logger.getLogger(ApiEEUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApiUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -77,6 +77,23 @@ public class ApiEEUtils {
         }
         
         return data.toArray(new String[0]);
+    }
+    
+    
+    /**
+     * 
+     * @param clazz 
+     * @param targetClass 
+     * @return 
+     */
+    public static boolean isClassInstance(Class clazz,Class targetClass) {
+        if(clazz.equals(targetClass)) {
+            return true;
+        }
+        if(clazz.equals(Object.class)) {
+            return false;
+        }
+        return isClassInstance(clazz,targetClass.getSuperclass());
     }
     
     

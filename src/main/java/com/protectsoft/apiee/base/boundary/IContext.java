@@ -10,8 +10,6 @@ import java.util.List;
  * @param <T>
  */
 interface IContext<T extends BaseEntity> {
-    
-    void setParent(Api<T> parent);
     Api<T> getParent();
     Api<T> getService();
     List<Pair<MasterDetail,Api<T>>> getChilds();

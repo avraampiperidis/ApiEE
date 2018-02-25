@@ -14,7 +14,7 @@ import org.glassfish.jersey.media.multipart.internal.MultiPartWriter;
 /**
  * 
  */
-public class ApiEEHttp {
+public class ApiHttp {
     
     public static ClientResponse get(String url,String headerName,String headerValue){
         Client client = Client.create();
