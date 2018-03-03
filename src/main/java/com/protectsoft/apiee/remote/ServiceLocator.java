@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.api;
+package com.protectsoft.apiee.remote;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

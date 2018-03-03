@@ -12,6 +12,7 @@ import java.util.List;
 interface IContext<T extends BaseEntity> {
     Api<T> getParent();
     Api<T> getService();
-    List<Pair<MasterDetail,Api<T>>> getChilds();
-    void addChild(Api<T> child);
+    List<Pair<MasterDetail,Api<? extends BaseEntity>>> getChildDetails();
+    List<Api<? extends BaseEntity>> getChilds();
+    <D extends BaseEntity> void addChild(Api<D> child);
 }

@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public abstract class Context<T extends BaseEntity> implements IContext<T> {
 
-    private final List<Pair<MasterDetail,Api<T>>> childs;
+    private final List<Pair<MasterDetail,Api<?>>> childs;
     private Api<T> parent;
     
     public Context() {     
@@ -40,7 +40,7 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     
     
     @Override
-    public void addChild(Api<T> child) {
+    public <D extends BaseEntity> void addChild(Api<D> child) {
         this.addChild(null,child);    
     }
     
@@ -54,16 +54,25 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
      * @return the child services
      */
     @Override
-    public List<Pair<MasterDetail,Api<T>>> getChilds() {
+    public List<Pair<MasterDetail,Api<? extends BaseEntity>>> getChildDetails() {
         return childs;
+    }
+    
+    @Override
+    public List<Api<? extends BaseEntity>> getChilds() {
+        List<Api<?>> list = new ArrayList<>();
+        this.childs.stream().forEach((t) -> {
+             list.add(t.getApi());
+        });
+        return list;
     }
 
     
     private <D extends BaseEntity> void addChild(MasterDetail<T,D> mDetail,Api<D> child) {
-        child.setParent((Api<D>)this);
+        child.setParent((Api<T>)this);
         if(!this.childs.stream().anyMatch(x->Objects.equals(x.getApi(),child))) {
             this.childs.add(new Pair(mDetail,child));
-        }     
+        }
     }
     
     <D extends BaseEntity> void setParent(MasterDetail<T,D> mDetail,Api<T> parent) {

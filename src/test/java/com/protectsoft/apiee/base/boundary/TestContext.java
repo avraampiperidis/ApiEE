@@ -30,7 +30,7 @@ public class TestContext {
     @Test
     public void testContext() {
         Context<BaseEntity> context = getContext();
-        assertTrue(context.getChilds().isEmpty());
+        assertTrue(context.getChildDetails().isEmpty());
         assertTrue(context.getParent() == null);
     }
     

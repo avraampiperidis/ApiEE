@@ -14,7 +14,7 @@ import javax.validation.ValidatorFactory;
  */
 public abstract class BaseEntity implements Serializable  {
 
-    public BaseEntity() {
+    protected BaseEntity() {
     }
     
     public abstract  Long getId();

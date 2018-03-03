@@ -9,7 +9,8 @@ import java.util.List;
  *
  * @author Abraham Piperidis
  */
-public class Mock {
+public class MyMock {
+    
     
     public static class MockEntityParent extends BaseEntityAUTO {
         private List<MockEntityChild> childs = new ArrayList<>();
@@ -62,6 +63,7 @@ public class Mock {
     }
     public static class MockEntityChild2 extends BaseEntityAUTO {
         private MockEntityParent parentMock;
+        private List<MockEntityOtherChild> childs;
 
         /**
          * @return the parentMock
@@ -74,6 +76,37 @@ public class Mock {
          * @param parent the parentMock to set
          */
         public void setParent(MockEntityParent parent) {
+            this.parentMock = parent;
+        }
+
+        /**
+         * @return the childs
+         */
+        public List<MockEntityOtherChild> getChilds() {
+            return childs;
+        }
+
+        /**
+         * @param childs the childs to set
+         */
+        public void setChilds(List<MockEntityOtherChild> childs) {
+            this.childs = childs;
+        }
+    }
+    public static class MockEntityOtherChild extends BaseEntityAUTO {
+        private MockEntityChild2 parentMock;
+
+        /**
+         * @return the parentMock
+         */
+        public MockEntityChild2 getParent() {
+            return parentMock;
+        }
+
+        /**
+         * @param parent the parentMock to set
+         */
+        public void setParent(MockEntityChild2 parent) {
             this.parentMock = parent;
         }
     }
@@ -90,6 +123,11 @@ public class Mock {
     public static class MockFacadeChild2 extends Api<MockEntityChild2> {
         public MockFacadeChild2() {
             super(MockEntityChild2.class);
+        }
+    }
+    public static class MockFacadeOtherChild extends Api<MockEntityOtherChild> {
+        public MockFacadeOtherChild() {
+            super(MockEntityOtherChild.class);
         }
     }
     

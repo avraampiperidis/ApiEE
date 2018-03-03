@@ -6,35 +6,31 @@ import com.protectsoft.apiee.base.interfaces.IRepository;
 import com.protectsoft.apiee.base.interfaces.IValidation;
 import com.protectsoft.apiee.core.ApiUtils;
 import com.protectsoft.apiee.core.CountedList;
-import com.protectsoft.apiee.core.annotations.NamedDataSource;
 import com.protectsoft.apiee.core.exceptions.EntityException;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+
+
 
 /**
  * @author Avraam Piperidis
  * @param <T>
  */
 public abstract class Api<T extends BaseEntity> extends Context<T>  implements IRepository<T> , IValidation<T,T> {
-       
+    
     @Inject
-    @NamedDataSource        
-    private EntityManager em;
+    private RepoAccess repo;
+    
+    @Inject
+    private Validator validator;
         
     private final  Class<T> entityClass;
     
-    public Api(Class clazz) {
+    public Api(Class<T> clazz) {
         if(!ApiUtils.isClassInstance(BaseEntity.class,clazz)) {
             throw new RuntimeException("Class must be type of BaseEntity or any subclass");
         } 
@@ -57,7 +53,7 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
      * @return the em
      */
     public EntityManager getEntityManager() {
-        return em;
+        return repo.getEntityManager();
     }
 
     /**
@@ -71,47 +67,36 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     
     @Override
     public List<T> findAll() {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return em.createQuery(cq).getResultList();
+        return repo.findAll(entityClass);
     }
     
     @Override
     public void create(T entity) {
         validate(entity);
-        em.persist(entity);
+        repo.create(entity);
     }
      
     
     @Override
     public T update(T entity) {
         validate(entity);
-        return em.merge(entity);
+        return repo.update(entity);
     }
 
     @Override
     public void delete(T entity) {
-        em.remove(em.merge(entity));
+        repo.remove(entity);
     }
 
     @Override
     public T find(Long id) {
-        return em.find(entityClass, id);
+        return repo.find(entityClass, id);
     }
      
     
     @Override
     public void validate(T entity) {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = (Validator) factory.getValidator();
-        Set<ConstraintViolation<T>> cv = validator.validate(entity);
-        if (!cv.isEmpty()) { 
-           throw new ConstraintViolationException(cv);
-        }
-
-        if(!entity.isValid()) {
-            throw new ConstraintViolationException("Entity validation failed", null);
-        }
+        validator.validate(entity);
     }
     
     @Override
@@ -123,17 +108,14 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
             throw new EntityException(400, 104, "Ασυμφωνία ID.");      
         validateUpdate(entity, dto);
         validate(dto);
-        return em.merge(dto);
+        return repo.update(dto);
     }
     
     
     public List<T> findRange(int[] range) {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        return em.createQuery(cq.select(cq.from(entityClass)))
-                .setFirstResult(range[0])
-                .setMaxResults(range[1] - range[0] + 1)
-                .getResultList();
+        return repo.findRange(range, entityClass);
     }
+    
     
     public CountedList<T> search(JsonObject search) {
         return null;
@@ -141,14 +123,13 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     
     
     public int count() {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(em.getCriteriaBuilder().count(cq.from(entityClass)));
-        return ((Long) em.createQuery(cq).getSingleResult()).intValue();
+        return repo.count(entityClass);
     }
     
     
     @Override
     public void validateUpdate(T db,T dao) {
+        validator.validateUpdate(db,dao);
     }
     
     

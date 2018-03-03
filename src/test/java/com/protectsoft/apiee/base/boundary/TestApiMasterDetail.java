@@ -1,9 +1,9 @@
 package com.protectsoft.apiee.base.boundary;
 
-import com.protectsoft.apiee.core.Mock.MockEntityChild;
-import com.protectsoft.apiee.core.Mock.MockEntityParent;
-import com.protectsoft.apiee.core.Mock.MockFacadeChild;
-import com.protectsoft.apiee.core.Mock.MockFacadeParent;
+import com.protectsoft.apiee.core.MyMock.MockEntityChild;
+import com.protectsoft.apiee.core.MyMock.MockEntityParent;
+import com.protectsoft.apiee.core.MyMock.MockFacadeChild;
+import com.protectsoft.apiee.core.MyMock.MockFacadeParent;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import static org.junit.Assert.assertEquals;
@@ -41,19 +41,19 @@ public class TestApiMasterDetail {
     
     @Test
     public void testAddChildDetailPair() {
-        parent.getChilds().get(0);
-        parent.getChilds().get(0).getMasterDetailHolder();
-        parent.getChilds().get(0).getMasterDetailHolder().getChildClass();
+        parent.getChildDetails().get(0);
+        parent.getChildDetails().get(0).getMasterDetailHolder();
+        parent.getChildDetails().get(0).getMasterDetailHolder().getChildClass();
         
-        assertEquals(MockEntityChild.class,parent.getChilds().get(0).getMasterDetailHolder().getChildClass());
-        assertEquals(MockEntityParent.class,parent.getChilds().get(0).getMasterDetailHolder().getMasterClass());
-        assertEquals(MockEntityParent.class,parent.getChilds().get(1).getMasterDetailHolder().getMasterClass());
-        assertEquals(MockEntityChild.class,parent.getChilds().get(1).getMasterDetailHolder().getChildClass());
-        assertEquals(MoveOption.ORPHANS_ALLOWED,parent.getChilds().get(0).getMasterDetailHolder().getMoveOption());
-        assertEquals(MoveOption.ONE_TO_ONE,parent.getChilds().get(1).getMasterDetailHolder().getMoveOption());
-        assertEquals(child,parent.getChilds().get(0).getApi());
-        assertEquals(child2,parent.getChilds().get(1).getApi());
-        assertEquals(parent,parent.getChilds().get(1).getApi().getParent());
+        assertEquals(MockEntityChild.class,parent.getChildDetails().get(0).getMasterDetailHolder().getChildClass());
+        assertEquals(MockEntityParent.class,parent.getChildDetails().get(0).getMasterDetailHolder().getMasterClass());
+        assertEquals(MockEntityParent.class,parent.getChildDetails().get(1).getMasterDetailHolder().getMasterClass());
+        assertEquals(MockEntityChild.class,parent.getChildDetails().get(1).getMasterDetailHolder().getChildClass());
+        assertEquals(MoveOption.ORPHANS_ALLOWED,parent.getChildDetails().get(0).getMasterDetailHolder().getMoveOption());
+        assertEquals(MoveOption.ONE_TO_ONE,parent.getChildDetails().get(1).getMasterDetailHolder().getMoveOption());
+        assertEquals(child,parent.getChildDetails().get(0).getApi());
+        assertEquals(child2,parent.getChildDetails().get(1).getApi());
+        assertEquals(parent,parent.getChildDetails().get(1).getApi().getParent());
     }
     
     

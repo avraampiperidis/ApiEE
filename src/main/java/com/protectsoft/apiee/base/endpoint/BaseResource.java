@@ -17,22 +17,16 @@ import javax.ws.rs.core.UriInfo;
  *
  * @param <T> .
  */
-
-public abstract class BaseResource<T extends BaseEntity>  implements IReposirotyResource<T>  {
+public abstract class BaseResource<T extends BaseEntity>  extends Resource<T>  implements IReposirotyResource<T>  {
     
-    private final  Api<T> service;
         
     public BaseResource(Api<T> t) {
-        this.service = t;
-    }
-    
-    public Api<T> getService() {
-        return this.service;
+        super(t);
     }
     
     @Override
     public List<T> findAll() {
-        return service.findAll();
+        return getService().findAll();
     }
     
     @Override
@@ -40,7 +34,7 @@ public abstract class BaseResource<T extends BaseEntity>  implements IReposiroty
         if(entity == null) {
             throw new RequestException();
         }
-        service.create(entity);
+        getService().create(entity);
         URI uri = ui.getAbsolutePathBuilder().path(entity.getId().toString()).build();
         return Response
                 .created(uri)
@@ -54,26 +48,26 @@ public abstract class BaseResource<T extends BaseEntity>  implements IReposiroty
         if(entity == null) {
             throw new RequestException();
         }
-        return Response.ok().entity(service.update(id, entity)).build();
+        return Response.ok().entity(getService().update(id, entity)).build();
     }
     
     
     @Override
     public Response remove(Long id) {
-        T o = service.find(id);
+        T o = getService().find(id);
         if(o == null) {
-            throw new EntityNotExists(id, service.getEntitySimpleName());
+            throw new EntityNotExists(id, getService().getEntitySimpleName());
         }
-        service.delete(o);
+        getService().delete(o);
         return Response.noContent().build();
     }
     
     
     @Override
     public T find(Long id) {
-        T entity = service.find(id);
+        T entity = getService().find(id);
         if(entity == null) {
-            throw new EntityNotExists(id, service.getEntitySimpleName());
+            throw new EntityNotExists(id, getService().getEntitySimpleName());
         }
         return entity;
     }
@@ -81,16 +75,16 @@ public abstract class BaseResource<T extends BaseEntity>  implements IReposiroty
     
     @Override
     public List<T> findRange(Integer from, Integer to) {
-        return service.findRange(new int[]{from, to});
+        return getService().findRange(new int[]{from, to});
     }
 
     @Override
     public String countREST() {
-        return String.valueOf(service.count());
+        return String.valueOf(getService().count());
     }
     
     public CountedList<T> search(JsonObject searchClauses) {
-       return service.search(searchClauses);
+       return getService().search(searchClauses);
     }
    
         

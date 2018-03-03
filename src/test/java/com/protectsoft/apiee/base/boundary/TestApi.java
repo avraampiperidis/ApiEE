@@ -14,16 +14,10 @@ import org.junit.Test;
 public class TestApi {
     
     
-    @Test(expected = RuntimeException.class)
-    public void testApiEx() {
-        new Api<BaseEntity>(String.class) {};
-    }
-    
-    
     @Test
     public void testApi() {
-        Api<BaseEntity> api = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        assertTrue(api.getChilds().isEmpty());
+        Api api = new Api(BaseEntityAUTO.class) {};
+        assertTrue(api.getChildDetails().isEmpty());
         assertEquals(BaseEntityAUTO.class,api.getEntityClass());
         assertTrue(!api.getEntitySimpleName().isEmpty());
     }
@@ -31,7 +25,7 @@ public class TestApi {
     
     @Test
     public void testApiParent() {
-        Api<BaseEntity> api = new Api<BaseEntity>(BaseEntityAUTO.class) {};
+        Api<BaseEntity> api = new Api<BaseEntity>(BaseEntity.class) {};
         assertEquals(api,api.getParent());
         assertEquals(api,api.getParent().getParent());
         assertEquals(api,api.getParent().getParent().getParent());
@@ -43,61 +37,61 @@ public class TestApi {
     
     @Test
     public void testSetParent() {
-        Api<BaseEntity> api = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> parent = getMockApi(BaseEntitySequence.class);
-        assertTrue(parent.getChilds().isEmpty());
+        Api<BaseEntityAUTO> api = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
+        Api<BaseEntitySequence> parent = getMockApi(BaseEntitySequence.class);
+        assertTrue(parent.getChildDetails().isEmpty());
         parent.addChild(api);
         assertTrue(!api.getParent().equals(api));
         assertEquals(parent,api.getParent());
         assertEquals(parent,api.getParent().getParent());
-        assertEquals(api,parent.getChilds().get(0).getApi());
-        assertTrue(api.getChilds().isEmpty());
+        assertEquals(api,parent.getChildDetails().get(0).getApi());
+        assertTrue(api.getChildDetails().isEmpty());
         
     }
     
     
     @Test
     public void testAddChild() {
-        Api<BaseEntity> parent = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> child1 = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> child2 = new Api<BaseEntity>(BaseEntityAUTO.class) {};
+        Api<BaseEntity> parent = new Api<BaseEntity>(BaseEntity.class) {};
+        Api<BaseEntity> child1 = new Api<BaseEntity>(BaseEntity.class) {};
+        Api<BaseEntityAUTO> child2 = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
         parent.addChild(child1);
         parent.addChild(child2);
-        assertEquals(2,parent.getChilds().size());
-        assertEquals(parent,parent.getChilds().get(0).getApi().getParent());
-        assertEquals(parent,parent.getChilds().get(1).getApi().getParent());
+        assertEquals(2,parent.getChildDetails().size());
+        assertEquals(parent,parent.getChildDetails().get(0).getApi().getParent());
+        assertEquals(parent,parent.getChildDetails().get(1).getApi().getParent());
         assertEquals(parent,parent.getParent());
-        assertEquals(parent,parent.getChilds().get(1).getApi().getParent().getParent());
+        assertEquals(parent,parent.getChildDetails().get(1).getApi().getParent().getParent());
     }
     
     @Test
     public void testAddParentChild() {
-        Api<BaseEntity> parent = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> child = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> subChild = new Api<BaseEntity>(BaseEntityAUTO.class) {};
-        Api<BaseEntity> subChild2 = new Api<BaseEntity>(BaseEntityAUTO.class) {};
+        Api<BaseEntityAUTO> parent = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
+        Api<BaseEntity> child = new Api<BaseEntity>(BaseEntity.class) {};
+        Api<BaseEntityAUTO> subChild = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
+        Api<BaseEntity> subChild2 = new Api<BaseEntity>(BaseEntity.class) {};
         parent.addChild(child);
         child.addChild(subChild);
         child.addChild(subChild2);
         
-        assertEquals(1,parent.getChilds().size());
-        assertEquals(child,parent.getChilds().get(0).getApi());
+        assertEquals(1,parent.getChildDetails().size());
+        assertEquals(child,parent.getChildDetails().get(0).getApi());
         assertEquals(parent,child.getParent());
         assertEquals(parent,child.getParent().getParent());
         
-        assertEquals(2,child.getChilds().size());
+        assertEquals(2,child.getChildDetails().size());
         assertEquals(child,subChild.getParent());
         assertEquals(child,subChild2.getParent());
         assertEquals(parent,subChild2.getParent().getParent());
         assertEquals(parent,subChild2.getParent().getParent().getParent());
         assertEquals(parent,subChild.getParent().getParent());
-        assertTrue(subChild.getChilds().isEmpty());
+        assertTrue(subChild.getChildDetails().isEmpty());
     }
     
     
     @Test
     public void testApiGetService() {
-        Api<BaseEntity> api = new Api<BaseEntity>(BaseEntityAUTO.class) {};
+        Api<BaseEntityAUTO> api = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
         assertEquals(api,api.getService());
     }
     

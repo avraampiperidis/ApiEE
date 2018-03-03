@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.api;
+package com.protectsoft.apiee.remote;
 
 /**
  *
