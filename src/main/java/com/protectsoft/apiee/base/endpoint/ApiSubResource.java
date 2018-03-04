@@ -6,10 +6,16 @@ import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -27,24 +33,30 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
         super(id,service,childClass);
     }
 
+    @GET
     @Override
-    public Object countREST() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer count() {
+        return super.count();
     }
 
+    @POST
     @Override
-    public Object create(UriInfo ui, D entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Response create(UriInfo ui, D entity) {
+         return super.create(ui, entity);
     }
 
+    @PUT
+    @Path("{id}")
     @Override
-    public Object edit(Long id, D entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public D edit(@PathParam("id") Long id,D entity) {
+        return super.edit(id, entity);
     }
 
+    @GET
+    @Path("{id}")
     @Override
-    public D find(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public D find(@PathParam("id") Long id) {
+        return super.find(id);
     }
 
     @GET
@@ -53,19 +65,24 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
         return super.findAll();
     }
 
+    @GET
+    @Path("{from}/{to}")
     @Override
-    public List<D> findRange(Integer from, Integer to) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<D> findRange(@PathParam("from") Integer from,@PathParam("to") Integer to) {
+        return super.findRange(from, to);
     }
 
+    @DELETE
+    @Path("{id}")
     @Override
-    public Object remove(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Response remove(@PathParam("id") Long id) {
+        return (Response) super.remove(id);
     }
 
+    @POST
     @Override
     public List<D> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.search(ui, ctx, search_clauses);
     }
 
 }

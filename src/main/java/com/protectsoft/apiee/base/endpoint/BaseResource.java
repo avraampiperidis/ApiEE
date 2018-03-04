@@ -10,6 +10,7 @@ import com.protectsoft.apiee.core.exceptions.RequestException;
 import java.net.URI;
 import java.util.List;
 import javax.json.JsonObject;
+import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -79,15 +80,15 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T>  i
     }
 
     @Override
-    public String countREST() {
-        return String.valueOf(getService().count());
+    public Integer count() {
+        return getService().count();
     }
     
-    public CountedList<T> search(JsonObject searchClauses) {
-       return getService().search(searchClauses);
+    
+    @Override
+    public List<T> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
    
-        
- 
 
 }

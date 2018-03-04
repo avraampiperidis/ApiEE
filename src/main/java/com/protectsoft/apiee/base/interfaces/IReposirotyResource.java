@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriInfo;
  */
 public interface IReposirotyResource<T extends BaseEntity> {
 
-    Object countREST();
+    Object count();
 
     Object create(@Context UriInfo ui, T entity);
 
