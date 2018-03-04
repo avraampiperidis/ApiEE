@@ -1,8 +1,11 @@
 package com.protectsoft.apiee.base.boundary;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
+import com.protectsoft.apiee.core.masterdetail.DetailFunction;
+import com.protectsoft.apiee.core.masterdetail.DetailsFunction;
 import com.protectsoft.apiee.core.masterdetail.MasterDetail;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
+import com.protectsoft.apiee.core.masterdetail.MasterFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +48,20 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     }
     
     
-    public <D extends BaseEntity> void addChildDetail(Class<T> masterClass, Class<D> detailClass, MasterDetailFunction<T, D> masterDetailFunction, Api<D> detailService, MoveOption moveOption) {
-        this.addChild(new MasterDetail<>(masterClass,detailClass,masterDetailFunction,moveOption),detailService);
+    public <D extends BaseEntity> void addChildDetail(Class<T> masterClass, Class<D> detailClass, 
+            MasterDetailFunction<T, D> masterDetailFunction, 
+            Api<D> detailService, MoveOption moveOption) {
+        this.addChild(new MasterDetail<>(masterClass,detailClass,masterDetailConstraint(masterDetailFunction),moveOption),detailService);
+    }
+  
+    
+    
+    public <D extends BaseEntity> void addChildDetail(Class<T> masterClass, Class<D> detailClass, 
+            DetailsFunction<T, D> detailsFunction,
+            DetailFunction<T,D> detailFunction,
+            MasterFunction<T,D> masterFunction,
+            Api<D> detailService, MoveOption moveOption) {
+        this.addChild(new MasterDetail<>(masterClass,detailClass,detailsFunction,detailFunction,masterFunction,moveOption),detailService);
     }
     
     
@@ -77,6 +92,18 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     
     <D extends BaseEntity> void setParent(MasterDetail<T,D> mDetail,Api<T> parent) {
          this.parent = parent;
+    }
+    
+    
+    
+    
+    private <D extends BaseEntity> MasterDetailFunction<T, D> masterDetailConstraint(MasterDetailFunction<T, D> mf) {
+        if(mf instanceof DetailsFunction || mf instanceof DetailFunction || mf instanceof MasterFunction) {
+            throw new RuntimeException("MasterDetailFunction cannot be any of the following instances "
+                    + "DetailsFunction,DetailFunction,MasterFunction.. use the appropriate method "
+                    + "instead");
+        } 
+        return mf;
     }
     
 }

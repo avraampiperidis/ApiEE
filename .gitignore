@@ -1,5 +1,6 @@
 #netbeans specific
 
+.idea
 target
 nbproject/private
 src/main/webapp/angular
@@ -11,5 +12,6 @@ derby.log
 
 #java specific
 *.class
+*.iml
 nbproject/project.properties
 /nb-configuration.xml

@@ -16,18 +16,33 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
     private String selector = "";
     private MasterDetailFunction<M,D> function;
     
-    public MasterDetail() {}
     
-    
-    public MasterDetail(Class<M> masterClass, Class<D> detailClass,MasterDetailFunction<M,D> function,MoveOption mo) {
+    public MasterDetail(Class<M> masterClass, Class<D> detailClass,MoveOption mo) {
         this.masterClass = masterClass;
         this.childClass = detailClass;
         this.moveOption = mo;
+    }
+    
+    
+    public MasterDetail(Class<M> masterClass, Class<D> detailClass,MasterDetailFunction<M,D> function,MoveOption mo) {
+        this(masterClass,detailClass,mo);
         this.function = function;
     }
     
     public MasterDetail(Class<M> masterClass, Class<D> detailClass,MasterDetailFunction<M,D> function,MoveOption mo,String selector) {
         this(masterClass,detailClass,function,mo);
+        this.selector = selector;
+    }
+    
+    public MasterDetail(Class<M> masterClass,Class<D> detailClass,DetailsFunction<M,D> detailsFunction,
+            DetailFunction<M,D> detailFunction,MasterFunction<M,D> masterFunction,MoveOption mo) {
+        this(masterClass,detailClass,mo);
+        this.function = new MasterDetailFunctionImpl(detailsFunction,detailFunction,masterFunction); 
+    }
+    
+    public MasterDetail(Class<M> masterClass,Class<D> detailClass,DetailsFunction<M,D> detailsFunction,
+            DetailFunction<M,D> detailFunction,MasterFunction<M,D> masterFunction,MoveOption mo,String selector) {
+        this(masterClass,detailClass,detailsFunction,detailFunction,masterFunction,mo);
         this.selector = selector;
     }
 
@@ -67,5 +82,4 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
         return selector;
     }
 
-    
 }
