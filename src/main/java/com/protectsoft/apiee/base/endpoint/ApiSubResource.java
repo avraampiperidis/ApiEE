@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -80,9 +81,10 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
     }
 
     @POST
+    @Path("search")
     @Override
-    public List<D> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
-        return super.search(ui, ctx, search_clauses);
+    public List<D> search(@Context ContainerRequestContext ctx, JsonObject search_clauses) {
+        return super.search(ctx,search_clauses);
     }
 
 }

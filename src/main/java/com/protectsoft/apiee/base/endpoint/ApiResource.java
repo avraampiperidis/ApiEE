@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -46,21 +47,21 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
 
     @POST
     @Override
-    public Response create(UriInfo ui, T entity) {
+    public Response create(@Context UriInfo ui, T entity) {
         return super.create(ui, entity); 
     }
 
     @PUT
     @Path("{id}")
     @Override
-    public Response edit(Long id, T entity) {
+    public Response edit(@PathParam("id") Long id, T entity) {
         return super.edit(id, entity); 
     }
 
     @DELETE
     @Path("{id}")
     @Override
-    public Response remove(Long id) {
+    public Response remove(@PathParam("id") Long id) {
         return super.remove(id); 
     }
 
@@ -72,9 +73,10 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     }
     
     @POST
+    @Path("search")
     @Override
-    public List<T> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
-        return super.search(ui, ctx, search_clauses);
+    public List<T> search(@Context ContainerRequestContext ctx, JsonObject search_clauses) {
+        return super.search(ctx, search_clauses);
     }
     
 }

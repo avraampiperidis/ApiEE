@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import com.protectsoft.apiee.base.interfaces.IResource;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
+import com.protectsoft.apiee.util.PagedList;
+import com.protectsoft.apiee.util.SearchUtil;
 
 /**
  *
@@ -81,7 +83,7 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
     
     @Override
     public List<D> findRange(Integer from, Integer to) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getDetails().subList(from, to);
     }
 
     @Override
@@ -103,16 +105,19 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         throw new RuntimeException();
     }
 
-    @Override
-    public List<D> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
     @Override
     public Integer count() {
         return getDetails().size();
     }
+    
+    @Override
+    public List<D> search(ContainerRequestContext ctx, JsonObject search_clauses) {
+        PagedList<D> result = SearchUtil.searchDetails(getDetails(), search_clauses);
+        ctx.setProperty("X-Total-Count", result.getOriginalSize());
+        return result.getFilteredList();
+    }
+    
     
     
     //maybe eager loaded/init it once on constructor?????
@@ -126,4 +131,6 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         }
         return details;
     }
+
+    
 }

@@ -85,7 +85,7 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T>  i
     
     
     @Override
-    public List<T> search(UriInfo ui, ContainerRequestContext ctx, JsonObject search_clauses) {
+    public List<T> search(ContainerRequestContext ctx, JsonObject search_clauses) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
    

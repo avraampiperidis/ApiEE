@@ -29,6 +29,6 @@ public interface IResource<T extends BaseEntity> {
 
     Object remove(@PathParam("id") Long id);
 
-    List<T> search(@Context UriInfo ui, @Context ContainerRequestContext ctx, JsonObject search_clauses);
+    List<T> search(@Context ContainerRequestContext ctx, JsonObject search_clauses);
 
 }

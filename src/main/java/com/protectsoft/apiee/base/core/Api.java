@@ -4,7 +4,7 @@ package com.protectsoft.apiee.base.core;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.interfaces.IRepository;
 import com.protectsoft.apiee.base.interfaces.IValidation;
-import com.protectsoft.apiee.util.CountedList;
+import com.protectsoft.apiee.util.PagedList;
 import com.protectsoft.apiee.core.exceptions.EntityException;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
 import java.util.List;
@@ -88,7 +88,7 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     }
     
     
-    public CountedList<T> search(JsonObject search) {
+    public PagedList<T> search(JsonObject search) {
         return null;
     }
     

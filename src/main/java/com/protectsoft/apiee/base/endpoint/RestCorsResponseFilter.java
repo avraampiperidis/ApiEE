@@ -15,7 +15,7 @@ import javax.ws.rs.ext.Provider;
 public class RestCorsResponseFilter implements ContainerResponseFilter {
     
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext response) {
+    public void filter(ContainerRequestContext requestContext,ContainerResponseContext response) {
         response.getHeaders().add("Access-Control-Allow-Origin", "*");
         response.getHeaders().add("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE, PATCH");
         response.getHeaders().putSingle("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization, Content-Disposition, Ignore-Authorization, responseType, X-Total-Count");
