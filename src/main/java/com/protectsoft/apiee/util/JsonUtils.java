@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.core;
+package com.protectsoft.apiee.util;
 
 import java.io.StringReader;
 import javax.json.Json;

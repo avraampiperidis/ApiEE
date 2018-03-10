@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.Api;
+import com.protectsoft.apiee.base.core.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.core.Response;

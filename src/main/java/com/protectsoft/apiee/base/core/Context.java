@@ -1,6 +1,7 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
+import com.protectsoft.apiee.util.ApiUtils;
 import com.protectsoft.apiee.core.masterdetail.DetailFunction;
 import com.protectsoft.apiee.core.masterdetail.DetailsFunction;
 import com.protectsoft.apiee.core.masterdetail.MasterDetail;
@@ -10,6 +11,8 @@ import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -17,13 +20,22 @@ import java.util.Objects;
  * @param <T>
  */
 public abstract class Context<T extends BaseEntity> implements IContext<T> {
-
+      
+    @Inject
+    private RepoAccess repo; 
+            
+    private final Class<T> entityClass;
+    
     private final List<Pair<MasterDetail,Api<?>>> childs;
     private Api<T> parent;
     
-    public Context() {     
+    Context(Class<T> clazz) {     
+        if(!ApiUtils.isClassInstance(BaseEntity.class,clazz)) {
+            throw new RuntimeException("Class must be type of BaseEntity or any subclass");
+        }
         this.childs = new ArrayList<>();
         this.setParent();
+        this.entityClass = clazz;
     }
     
     abstract void setParent();
@@ -36,16 +48,30 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
         return parent;
     }
     
+    public RepoAccess getRepo() {
+        return this.repo;
+    }
+    
+    public Class<T> getEntityClass() {
+        return this.entityClass;
+    }
+    
+    public String getEntitySimpleName() {
+        return entityClass.getSimpleName();
+    }
+    
+    /**
+     * @return the em
+     */
+    public EntityManager getEntityManager() {
+        return repo.getEntityManager();
+    }
+    
     
     <M extends BaseEntity> void setParent(Api<M> parent) {
         this.setParent(null,(Api<T>) parent);
     }
-    
-    
-    @Override
-    public <D extends BaseEntity> void addChild(Api<D> child) {
-        this.addChild(null,child);    
-    }
+
     
     
     public <D extends BaseEntity> void addChildDetail(Class<T> masterClass, Class<D> detailClass, 
@@ -93,7 +119,6 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     <D extends BaseEntity> void setParent(MasterDetail<T,D> mDetail,Api<T> parent) {
          this.parent = parent;
     }
-    
     
     
     

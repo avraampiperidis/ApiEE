@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.core;
+package com.protectsoft.apiee.util;
 
 import org.glassfish.jersey.server.spi.AbstractContainerLifecycleListener;
 import org.glassfish.jersey.server.spi.Container;

@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
@@ -19,7 +19,7 @@ public class TestContext {
     
     @Test(expected = UnsupportedOperationException.class)
     public void testContextInstance() {
-        new Context<BaseEntity>() {
+        new Context<BaseEntity>(BaseEntity.class) {
             @Override
             public void setParent() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -80,15 +80,16 @@ public class TestContext {
     
     
     private <T extends BaseEntity> Context<T> getContext() {
-        return new Context<T>() {
+        return (Context<T>) new Context<BaseEntity>(BaseEntity.class) {
             @Override
             public void setParent() {
             }
 
             @Override
-            public Api<T> getService() {
+            public Api<BaseEntity> getService() {
                 return null;
             }
         };
     }
 }
+

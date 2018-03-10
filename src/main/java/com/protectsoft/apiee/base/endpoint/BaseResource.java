@@ -1,10 +1,8 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.Api;
+import com.protectsoft.apiee.base.core.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
-import com.protectsoft.apiee.base.interfaces.IReposirotyResource;
-import com.protectsoft.apiee.core.CountedList;
 import com.protectsoft.apiee.core.exceptions.EntityNotExists;
 import com.protectsoft.apiee.core.exceptions.RequestException;
 import java.net.URI;
@@ -13,12 +11,13 @@ import javax.json.JsonObject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import com.protectsoft.apiee.base.interfaces.IResource;
 
 /**
  *
  * @param <T> .
  */
-public abstract class BaseResource<T extends BaseEntity>  extends Resource<T>  implements IReposirotyResource<T>  {
+public abstract class BaseResource<T extends BaseEntity>  extends Resource<T>  implements IResource<T>  {
     
         
     public BaseResource(Api<T> t) {

@@ -1,6 +1,6 @@
 package com.protectsoft.apiee.core;
 
-import com.protectsoft.apiee.base.boundary.Api;
+import com.protectsoft.apiee.base.core.Api;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.ArrayList;
 import java.util.List;

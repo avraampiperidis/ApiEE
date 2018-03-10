@@ -1,8 +1,10 @@
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.Api;
-import com.protectsoft.apiee.base.boundary.Relation;
+import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.base.core.Relation;
 import com.protectsoft.apiee.base.entities.BaseEntity;
+import java.net.URI;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -21,6 +23,7 @@ public abstract class Resource<T extends BaseEntity>   {
     Resource(Api<T> service,Relation<T> relation) {
         this(service);
         this.relation = relation;
+        this.rule();
     }
     
     public Api<T> getService() {
@@ -29,5 +32,17 @@ public abstract class Resource<T extends BaseEntity>   {
     
     public Relation<T> getRelation() {
         return this.relation;
+    }
+    
+    
+    private void rule() {
+        if(service.find(relation.getParentId())== null) {
+            throw new RuntimeException();
+        }
+    }
+    
+    
+    public <D extends BaseEntity> URI getNewPath(UriInfo ui,D entity) {
+        return ui.getAbsolutePathBuilder().path(entity.getId().toString()).build();
     }
 }

@@ -1,7 +1,7 @@
 
 package com.protectsoft.apiee.base.endpoint;
 
-import com.protectsoft.apiee.base.boundary.Api;
+import com.protectsoft.apiee.base.core.Api;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.json.JsonObject;

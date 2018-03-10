@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
@@ -40,7 +40,7 @@ public class TestApi {
         Api<BaseEntityAUTO> api = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
         Api<BaseEntitySequence> parent = getMockApi(BaseEntitySequence.class);
         assertTrue(parent.getChildDetails().isEmpty());
-        parent.addChild(api);
+        parent.addChildDetail(null, null, null, api, null);
         assertTrue(!api.getParent().equals(api));
         assertEquals(parent,api.getParent());
         assertEquals(parent,api.getParent().getParent());
@@ -55,8 +55,8 @@ public class TestApi {
         Api<BaseEntity> parent = new Api<BaseEntity>(BaseEntity.class) {};
         Api<BaseEntity> child1 = new Api<BaseEntity>(BaseEntity.class) {};
         Api<BaseEntityAUTO> child2 = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
-        parent.addChild(child1);
-        parent.addChild(child2);
+        parent.addChildDetail(null, null, null, child1, null);
+        parent.addChildDetail(null, null, null, child2, null);
         assertEquals(2,parent.getChildDetails().size());
         assertEquals(parent,parent.getChildDetails().get(0).getApi().getParent());
         assertEquals(parent,parent.getChildDetails().get(1).getApi().getParent());
@@ -70,9 +70,9 @@ public class TestApi {
         Api<BaseEntity> child = new Api<BaseEntity>(BaseEntity.class) {};
         Api<BaseEntityAUTO> subChild = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
         Api<BaseEntity> subChild2 = new Api<BaseEntity>(BaseEntity.class) {};
-        parent.addChild(child);
-        child.addChild(subChild);
-        child.addChild(subChild2);
+        parent.addChildDetail(null, null, null, child, null);
+        child.addChildDetail(null, null, null, subChild, null);
+        child.addChildDetail(null, null, null, subChild2, null);
         
         assertEquals(1,parent.getChildDetails().size());
         assertEquals(child,parent.getChildDetails().get(0).getApi());

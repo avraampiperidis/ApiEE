@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.core;
+package com.protectsoft.apiee.util;
 
 import javax.ejb.Stateless;
 

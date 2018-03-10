@@ -111,9 +111,9 @@ public class TestMasterDetailFunction {
         MockEntityChild mock2 = mock(MockEntityChild.class);
         List<MockEntityChild> mocks = Arrays.asList(mock1,mock2);
         when(parentMock.getChilds()).thenReturn(mocks);
-        assertEquals(2,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getFunction().getDetails(parentMock).size());
-        assertEquals(mock1,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getFunction().getDetails(parentMock).get(0));
-        assertEquals(mock2,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getFunction().getDetails(parentMock).get(1));
+        assertEquals(2,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getDetails(parentMock).size());
+        assertEquals(mock1,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getDetails(parentMock).get(0));
+        assertEquals(mock2,parentFacade.getChildDetails().get(0).getMasterDetailHolder().getDetails(parentMock).get(1));
     }
     
     
@@ -135,7 +135,7 @@ public class TestMasterDetailFunction {
         MockEntityChild2 mock1 = new MockEntityChild2();//mock(MockEntityChild2.class);
         assertTrue(parentMock.getChilds2().isEmpty());
         assertTrue(mock1.getParent() == null);
-        parentFacade.getChildDetails().get(2).getMasterDetailHolder().getFunction().setMaster(parentMock, mock1);
+        parentFacade.getChildDetails().get(2).getMasterDetailHolder().setMaster(parentMock, mock1);
         assertEquals(parentMock,mock1.getParent());
         assertTrue(parentMock.getChilds2().isEmpty());
     }
@@ -146,8 +146,8 @@ public class TestMasterDetailFunction {
         MockEntityParent parentMock = new MockEntityParent();
         MockEntityChild2 mock1 = new MockEntityChild2();
         MockEntityOtherChild otherChild = new MockEntityOtherChild();
-        parentFacade.getChildDetails().get(2).getMasterDetailHolder().getFunction().setMaster(parentMock, mock1);
-        child3Facade.getChildDetails().get(0).getMasterDetailHolder().getFunction().setMaster(mock1, otherChild);
+        parentFacade.getChildDetails().get(2).getMasterDetailHolder().setMaster(parentMock, mock1);
+        child3Facade.getChildDetails().get(0).getMasterDetailHolder().setMaster(mock1, otherChild);
         assertEquals(mock1,otherChild.getParent());
         assertEquals(parentMock,mock1.getParent());
     }
@@ -160,9 +160,9 @@ public class TestMasterDetailFunction {
         MockEntityOtherChild otherChild = new MockEntityOtherChild();
         parentMock.setChilds2(Arrays.asList(mock1));
         mock1.setChilds(Arrays.asList(otherChild));
-        assertEquals(1,parentFacade.getChildDetails().get(2).getMasterDetailHolder().getFunction().getDetails(parentMock).size());
-        assertEquals(mock1,parentFacade.getChildDetails().get(2).getMasterDetailHolder().getFunction().getDetails(parentMock).get(0));
-        assertEquals(otherChild,child3Facade.getChildDetails().get(0).getMasterDetailHolder().getFunction().getDetails(mock1).get(0));
+        assertEquals(1,parentFacade.getChildDetails().get(2).getMasterDetailHolder().getDetails(parentMock).size());
+        assertEquals(mock1,parentFacade.getChildDetails().get(2).getMasterDetailHolder().getDetails(parentMock).get(0));
+        assertEquals(otherChild,child3Facade.getChildDetails().get(0).getMasterDetailHolder().getDetails(mock1).get(0));
     }
     
     

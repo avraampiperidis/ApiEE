@@ -1,6 +1,7 @@
 package com.protectsoft.apiee.core.masterdetail;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
+import java.util.List;
 
 /**
  *
@@ -8,7 +9,7 @@ import com.protectsoft.apiee.base.entities.BaseEntity;
  * @param <M>
  * @param <D>
  */
-public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
+public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements IMasterDetailRelation<M,D>  {
     
     private Class<M> masterClass;
     private Class<D> childClass;
@@ -45,16 +46,40 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
         this(masterClass,detailClass,detailsFunction,detailFunction,masterFunction,mo);
         this.selector = selector;
     }
-
-
-    /**
-     * @return the function
-     */
-    public MasterDetailFunction<M,D> getFunction() {
-        return function;
+    
+    
+    @Override
+    public List<D> getDetails(M master) {
+        return this.function.getDetails(master);
+    }
+    
+    @Override
+    public D getDetail(M master) {
+        return this.function.getDetail(master);
+    }
+    
+    @Override
+    public void setMaster(M master,D detail) {
+        this.function.setMaster(master, detail);
+    }
+    
+    @Override
+    public void setDetail(M master, D detail) {
+        this.function.setDetail(master, detail);
     }
 
-    /**
+    @Override
+    public void addDetail(M master, D detail) {
+        this.function.addDetail(master, detail);
+    }
+    
+    @Override
+    public void removeDetail(M master,D detail) {
+        this.function.removeDetail(master, detail);
+    }
+    
+    
+     /**
      * @return the masterClass
      */
     public Class<M> getMasterClass() {
@@ -82,4 +107,6 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity>  {
         return selector;
     }
 
+
+   
 }

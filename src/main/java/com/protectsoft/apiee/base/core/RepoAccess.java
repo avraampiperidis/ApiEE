@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.core.annotations.NamedDataSource;
@@ -12,10 +12,13 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author Abraham Piperidis
  */
 public class RepoAccess  {
-    
+       
     @Inject
     @NamedDataSource        
     private EntityManager em;
+        
+    RepoAccess() {
+    }
     
     public EntityManager getEntityManager() {
         return em;

@@ -40,10 +40,10 @@ public class TestMasterDetail {
         parent.addChild(new MockEntityChild());
         parent.addChild(new MockEntityChild());
         
-        assertEquals(3,md.getFunction().getDetails(parent).size());
+        assertEquals(3,md.getDetails(parent).size());
         MockEntityChild child = new MockEntityChild();
         assertNull(child.getParent());
-        md.getFunction().setMaster(parent, child);
+        md.setMaster(parent, child);
         assertEquals(parent,child.getParent());
     }
     

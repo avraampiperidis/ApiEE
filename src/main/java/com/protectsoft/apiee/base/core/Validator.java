@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.Set;
@@ -13,7 +13,7 @@ import javax.validation.ValidatorFactory;
  */
 public class Validator {
     
-    <T extends BaseEntity> void validate(T entity) {
+    static <T extends BaseEntity>  void validate(T entity) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         javax.validation.Validator validator = (javax.validation.Validator) factory.getValidator();
         Set<ConstraintViolation<T>> cv = validator.validate(entity);
@@ -27,7 +27,7 @@ public class Validator {
     }
     
     
-    <DB extends BaseEntity,DAO extends BaseEntity> void validateUpdate(DB db,DAO entity) {
+    static <DB extends BaseEntity,DAO extends BaseEntity> void validateUpdate(DB db,DAO entity) {
     }
     
 }

@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.core;
+package com.protectsoft.apiee.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

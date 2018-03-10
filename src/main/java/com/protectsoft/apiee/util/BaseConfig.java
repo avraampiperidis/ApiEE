@@ -1,5 +1,5 @@
 
-package com.protectsoft.apiee.core;
+package com.protectsoft.apiee.util;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -27,5 +27,4 @@ public class BaseConfig extends ResourceConfig  {
        
         register(StartUpHandler.class);
     }
-    
 }

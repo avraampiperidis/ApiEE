@@ -1,4 +1,4 @@
-package com.protectsoft.apiee.base.boundary;
+package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.core.MyMock.MockEntityChild;
 import com.protectsoft.apiee.core.MyMock.MockEntityParent;

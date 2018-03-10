@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
  *
  * @param <T>
  */
-public interface IReposirotyResource<T extends BaseEntity> {
+public interface IResource<T extends BaseEntity> {
 
     Object count();
 
