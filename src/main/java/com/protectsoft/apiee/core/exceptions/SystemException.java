@@ -1,20 +1,22 @@
 package com.protectsoft.apiee.core.exceptions;
 
 import com.protectsoft.apiee.core.exceptions.model.ErrorMessage;
+import javax.ejb.ApplicationException;
 
 /**
  *
+ * @author Abraham Piperidis
  */
-public class EntityException extends RuntimeException implements IException {
+@ApplicationException(rollback = true)
+public class SystemException extends Exception implements IException {
     
     private ErrorMessage error;
     
-    public EntityException() {
-        super("");
+    public SystemException() {
     }
-
-    public EntityException(int status, int code, String msg) {
-        this();
+    
+    public SystemException(int status,int code,String msg) {
+        super(msg);
         this.error = new ErrorMessage(status, code, msg);
     }
 
@@ -32,5 +34,7 @@ public class EntityException extends RuntimeException implements IException {
     public void setError(ErrorMessage error) {
         this.error = error;
     }
+    
+    
     
 }

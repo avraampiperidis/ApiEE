@@ -1,21 +1,18 @@
 package com.protectsoft.apiee.core.exceptions;
 
 import com.protectsoft.apiee.core.exceptions.model.ErrorMessage;
+import java.sql.SQLException;
 
 /**
  *
+ * @author Abraham Piperidis
  */
-public class EntityException extends RuntimeException implements IException {
+public class SqlException extends SQLException implements IException {
     
     private ErrorMessage error;
     
-    public EntityException() {
+    public SqlException() {
         super("");
-    }
-
-    public EntityException(int status, int code, String msg) {
-        this();
-        this.error = new ErrorMessage(status, code, msg);
     }
 
     /**

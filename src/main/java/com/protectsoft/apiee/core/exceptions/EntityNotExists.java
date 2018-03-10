@@ -1,14 +1,30 @@
 package com.protectsoft.apiee.core.exceptions;
 
+import com.protectsoft.apiee.core.exceptions.model.ErrorMessage;
+
 /**
  *
  */
-public class EntityNotExists extends RuntimeException {
+public class EntityNotExists extends RuntimeException implements IException {
     
-    public EntityNotExists() {}
+    private ErrorMessage error;
+    
+    public EntityNotExists() {
+        super("");
+    }
 
     public EntityNotExists(Long id, String entitySimpleName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this();
+        this.error = new ErrorMessage(id + ":" +entitySimpleName);
+    }
+
+    @Override
+    public ErrorMessage getError() {
+        return error;
+    }
+    
+    public void setError(ErrorMessage error) {
+        this.error = error;
     }
     
 }

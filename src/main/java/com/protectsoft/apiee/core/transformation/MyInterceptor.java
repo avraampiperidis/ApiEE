@@ -18,7 +18,7 @@ public class MyInterceptor<T extends BaseEntity> implements WriterInterceptor, R
     
     @Override
     public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
