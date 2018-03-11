@@ -46,7 +46,7 @@ public class RemoteApi {
     }
     
     
-    public static <T extends Object> T get(Class<?> bean, String module, String implementation) {
+    public static <T extends Object> T get(Class bean, String implementation, String module) {
         if(module.isEmpty() && implementation.isEmpty()) {
             return getModuleBeanService(bean);
         } else if(implementation.isEmpty() && !module.isEmpty()) {

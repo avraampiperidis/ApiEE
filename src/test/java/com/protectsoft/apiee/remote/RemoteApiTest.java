@@ -43,6 +43,16 @@ public class RemoteApiTest {
         Inter mockService =  RemoteApi.getService(Inter.class, "MockBean", "test");
         assertEquals("GreeterBean",gService.getMsg());
         assertEquals("MockBean",mockService.getMsg());
+    } 
+    
+    @Test
+    public void testGet() {
+        Inter gService = RemoteApi.get(Inter.class, "GreeterBean", "test");
+        assertEquals("GreeterBean",gService.getMsg());
+        gService = RemoteApi.get(GreeterBean.class,"","test");
+        assertEquals("GreeterBean",gService.getMsg());
+        gService = RemoteApi.get(GreeterBean.class,"","");
+        assertEquals("GreeterBean",gService.getMsg());
     }
     
 }
