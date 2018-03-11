@@ -51,24 +51,49 @@ public class ServiceLocator {
     }
     
     
+    /**
+     * Lookup's under java:module/bean.getSimpleName()
+     * @param <T>
+     * @param bean
+     * @return the lookup service OR Null
+     */
     public <T extends Object> T getModuleBeanService(Class bean){
         try {
             return (T) context.lookup("java:module/"+bean.getSimpleName());
         } catch (NamingException ex) {
+            Logger.getLogger(ServiceLocator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
     
+    /**
+     * lookup under java:global/module/ean.getSimpleName()
+     * @param <T>
+     * @param bean
+     * @param module
+     * @return the lookup service OR Null
+     */
     public <T extends Object> T getGlobalModuleBeanService(Class bean,String module){
         try {
-            return (T)context.lookup("java:global/"+module+"/"+bean);
+            return (T)context.lookup("java:global/"+module+"/"+bean.getSimpleName());
         } catch (NamingException ex) {
             Logger.getLogger(ServiceLocator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
         
-    
+    /**
+     * If module == null || module.isEmpty()
+     *  Lookup under java:module/beanClassImplementation!interface_class_path
+     * ELSE
+     *  Lookup under java:global/module/beanClassImplementation!interface_class_path
+     * 
+     * @param <T>
+     * @param api
+     * @param implementor
+     * @param module
+     * @return the lookup service OR Null
+     */
     public <T extends Object> T getService(Class api,String implementor,String module){
         try {
             String lookup;
