@@ -5,8 +5,11 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,6 +20,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ServiceLocatorTest {
 
+    static int hashCode;
   
     @Deployment
     public static JavaArchive createDeployment() {
@@ -27,10 +31,23 @@ public class ServiceLocatorTest {
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     
+    @BeforeClass
+    public static void beforeClass() {
+        hashCode = ServiceLocator.getInstance().hashCode();
+    }
+    
+    @AfterClass
+    public static void testRefreshInitialContext() {
+        assertEquals(hashCode,ServiceLocator.getInstance().hashCode());
+        ServiceLocator.refreshInitialContext();
+        assertTrue(ServiceLocator.getInstance().hashCode() != hashCode);
+    }
+    
     @Test(expected = NullPointerException.class)
     public void testGetModuleBeanServiceNull() {
         Object bean = ServiceLocator.getInstance().getModuleBeanService(String.class);
         bean.hashCode();
+        fail("should never get here");
     }
     
     @Test
