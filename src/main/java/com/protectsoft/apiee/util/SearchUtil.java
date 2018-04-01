@@ -175,21 +175,16 @@ public class SearchUtil {
      * @return 
      */
     private static boolean isMethodNumber(Method method) {
-        if(method.getReturnType() == int.class ||
-                method.getReturnType() == Integer.class
-                || method.getReturnType() == long.class
-                || method.getReturnType() == Long.class
-                || method.getReturnType() == double.class
-                || method.getReturnType() == Double.class
-                || method.getReturnType() == float.class
-                || method.getReturnType() == Float.class
-                || method.getReturnType() == short.class
-                || method.getReturnType() == Short.class
-                ) {
-            return true;
-        }
-            
-       return false;     
+       return method.getReturnType() == int.class ||
+               method.getReturnType() == Integer.class
+               || method.getReturnType() == long.class
+               || method.getReturnType() == Long.class
+               || method.getReturnType() == double.class
+               || method.getReturnType() == Double.class
+               || method.getReturnType() == float.class
+               || method.getReturnType() == Float.class
+               || method.getReturnType() == short.class
+               || method.getReturnType() == Short.class;     
     }
     
     private static List<Method> getAllMethods(Object d) {

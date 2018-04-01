@@ -1,3 +1,4 @@
+
 package com.protectsoft.apiee.core.annotations;
 
 import static java.lang.annotation.ElementType.FIELD;
@@ -7,17 +8,15 @@ import static java.lang.annotation.ElementType.TYPE;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
-import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
+
 
 /**
  *
+ * @author Abraham Piperidis
  */
 @Qualifier
 @Retention(RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface RemoteLookup {
-    @Nonbinding  Class<?> clazz() default Object.class;
-    @Nonbinding  String   module() default "";
-    @Nonbinding  String   implementation() default "";
+public @interface TransformBean {
 }

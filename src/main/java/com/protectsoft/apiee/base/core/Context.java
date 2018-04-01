@@ -1,6 +1,7 @@
 package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
+import com.protectsoft.apiee.core.exceptions.BusinessTierException;
 import com.protectsoft.apiee.util.ApiUtils;
 import com.protectsoft.apiee.core.masterdetail.DetailFunction;
 import com.protectsoft.apiee.core.masterdetail.DetailsFunction;
@@ -124,7 +125,7 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
     
     private <D extends BaseEntity> MasterDetailFunction<T, D> masterDetailConstraint(MasterDetailFunction<T, D> mf) {
         if(mf instanceof DetailsFunction || mf instanceof DetailFunction || mf instanceof MasterFunction) {
-            throw new RuntimeException("MasterDetailFunction cannot be any of the following instances "
+            throw new BusinessTierException("MasterDetailFunction cannot be any of the following instances "
                     + "DetailsFunction,DetailFunction,MasterFunction.. use the appropriate method "
                     + "instead");
         } 

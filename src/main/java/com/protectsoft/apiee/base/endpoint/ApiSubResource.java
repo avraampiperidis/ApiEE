@@ -35,6 +35,7 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
     }
 
     @GET
+    @Path("count")
     @Override
     public Integer count() {
         return super.count();
@@ -42,7 +43,7 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
 
     @POST
     @Override
-    public Response create(UriInfo ui, D entity) {
+    public Response create(@Context UriInfo ui, D entity) {
          return super.create(ui, entity);
     }
 

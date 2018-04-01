@@ -15,8 +15,14 @@ public class BusinessTierException  extends EJBException implements IException {
         super("");
     }
     
+    public BusinessTierException(String msg) {
+        super(msg);
+        this.error = new ErrorMessage(msg);
+    }
+    
     public BusinessTierException(String msg,Exception ex) {
         super(msg,ex);
+        this.error = new ErrorMessage(msg);
     }
     
     public BusinessTierException(int status,int code,String msg) {

@@ -14,6 +14,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import com.protectsoft.apiee.base.interfaces.IResource;
+import com.protectsoft.apiee.core.exceptions.BusinessTierException;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import com.protectsoft.apiee.util.PagedList;
 import com.protectsoft.apiee.util.SearchUtil;
@@ -56,16 +57,17 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
                 } else {
                     pair.getMasterDetailHolder().addDetail(parent, entity);
                 }
-                pair.getMasterDetailHolder().setMaster(parent, entity);
                 Api<D> api = (Api<D>)pair.getApi();
+                pair.getMasterDetailHolder().setMaster(parent, entity);
                 api.create(entity);
-                break;
-            }
-        }
-        return Response
+                
+                return Response
                 .created(getNewPath(ui,entity))
                 .entity(entity)
                 .build();
+            }
+        }
+        throw new BusinessTierException("Counld not create Entity:"+entity);
     }
     
 
