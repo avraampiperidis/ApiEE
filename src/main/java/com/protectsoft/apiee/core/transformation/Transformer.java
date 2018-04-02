@@ -1,6 +1,6 @@
 package com.protectsoft.apiee.core.transformation;
 
-import java.util.List;
+import com.protectsoft.apiee.base.core.RepoAccess;
 import javax.json.JsonObject;
 
 /**
@@ -10,9 +10,9 @@ import javax.json.JsonObject;
 public final class Transformer {
     
     private static Transformer transformer = null;
-    private List<TransformRelation> relations;
+    private TransformRelation relation;
     private JsonObject json;
-    private Transform instance;
+    private RepoAccess repo;
     
     private Transformer() {}
     
@@ -27,8 +27,13 @@ public final class Transformer {
         return transformer;
     }
     
-    public Transformer with(List<TransformRelation> relations) {
-        this.relations = relations;
+    public Transformer with(TransformRelation relations) {
+        this.relation = relations;
+        return this;
+    }
+    
+    public Transformer with(RepoAccess repo) {
+        this.repo = repo;
         return this;
     }
     
@@ -37,23 +42,21 @@ public final class Transformer {
         return this;
     }
     
-    public Transformer with(Transform instance) {
-        this.instance = instance;
-        return this;
+    
+    
+    public void transform(Transform instance) {
+         if(getRelation() == null || getJson() == null || instance == null || getRepo() == null){
+            throw new NullPointerException("getRelation() == null || getJson() == null || instance == null || repo == null cannot be null");
+        }
+        new Builder(this).build(instance);
     }
     
-    public Transform transform() {
-        if(getRelations() == null || getJson() == null || getInstance() == null){
-            throw new NullPointerException("relations OR json OR instance cannot be null");
-        }
-        return new Builder(this).build();
-    }
 
     /**
      * @return the relations
      */
-    public List<TransformRelation> getRelations() {
-        return relations;
+    public TransformRelation getRelation() {
+        return relation;
     }
 
     /**
@@ -64,11 +67,12 @@ public final class Transformer {
     }
 
     /**
-     * @return the instance
+     * @return the repo
      */
-    public Transform getInstance() {
-        return instance;
+    public RepoAccess getRepo() {
+        return repo;
     }
-    
+
+   
     
 }

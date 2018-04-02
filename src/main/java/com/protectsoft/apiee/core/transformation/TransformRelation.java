@@ -1,6 +1,8 @@
 package com.protectsoft.apiee.core.transformation;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,14 +15,18 @@ public class TransformRelation {
     private Class<?> type;
     private Method method;
     private String fieldName;
+    private boolean isEmbedded;
+    private TransformRelation parent;
+    private final List<TransformRelation> childs;
     
     public TransformRelation() {
+        this.childs = new ArrayList<>();
     }
     
-    public TransformRelation(Transform instance,Class<?> type,Method m) {
+    public TransformRelation(Object instance,Class<?> clazz){
+        this();
         this.instance = instance;
-        this.type = type;
-        this.method = m;
+        this.type = clazz;
     }
 
     /**
@@ -79,6 +85,41 @@ public class TransformRelation {
         this.fieldName = fieldName;
     }
     
+    /**
+     * @return the isEmbedded
+     */
+    public boolean isIsEmbedded() {
+        return isEmbedded;
+    }
+
+    /**
+     * @param isEmbedded the isEmbedded to set
+     */
+    public void setIsEmbedded(boolean isEmbedded) {
+        this.isEmbedded = isEmbedded;
+    }
+
+    /**
+     * @return the parent
+     */
+    public TransformRelation getParent() {
+        return parent;
+    }
+
+    /**
+     * @param parent the parent to set
+     */
+    public void setParent(TransformRelation parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * @return the childs
+     */
+    public List<TransformRelation> getChilds() {
+        return childs;
+    }
+    
     
     
     @Override
@@ -104,6 +145,7 @@ public class TransformRelation {
         hash = 97 * hash + Objects.hashCode(this.instance);
         hash = 97 * hash + Objects.hashCode(this.type);
         hash = 97 * hash + Objects.hashCode(this.fieldName);
+        hash = 97 * hash + Objects.hashCode(this.method);
         return hash;
     }
     
@@ -111,5 +153,7 @@ public class TransformRelation {
     public String toString() {
         return "{instance:"+instance.getClass()+",type:"+type+",method:"+method+",fieldName:"+fieldName;
     }
+
+    
     
 }

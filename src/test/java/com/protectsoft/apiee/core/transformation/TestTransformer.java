@@ -36,18 +36,8 @@ public class TestTransformer {
     @Test(expected = NullPointerException.class)
     public void testTransformNull() {
         Transformer tr = Transformer.getTransformer();
-        tr.transform();
+        tr.transform(null);
     }
     
-    
-    @Test
-    public void testTransform() {
-        Transformer tr = Transformer.getTransformer();
-        Transform t = tr.with(Json.createObjectBuilder().add("key","val").build())
-                .with(new ArrayList<>())
-                .with(new Transform() {
-                }).transform();
-        assertNotNull(t);
-    }
     
 }
