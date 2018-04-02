@@ -2,8 +2,6 @@ package com.protectsoft.apiee.core.transformation;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.json.Json;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -36,7 +34,7 @@ public class TestTransformer {
     @Test(expected = NullPointerException.class)
     public void testTransformNull() {
         Transformer tr = Transformer.getTransformer();
-        tr.transform(null);
+        tr.transform();
     }
     
     

@@ -18,7 +18,7 @@ class Builder {
         this.transformer = transformer;
     }
     
-    public void build(Transform instance) {
+    public void build() {
         transformer.getRelation().getChilds().forEach((t) -> {
             this.process(t,t.getInstance(),transformer.getJson());
         });

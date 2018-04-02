@@ -44,11 +44,11 @@ public final class Transformer {
     
     
     
-    public void transform(Transform instance) {
-         if(getRelation() == null || getJson() == null || instance == null || getRepo() == null){
-            throw new NullPointerException("getRelation() == null || getJson() == null || instance == null || repo == null cannot be null");
+    public void transform() {
+         if(getRelation() == null || getJson() == null  || getRepo() == null){
+            throw new NullPointerException("getRelation() == null || getJson() == null  || repo == null cannot be null");
         }
-        new Builder(this).build(instance);
+        new Builder(this).build();
     }
     
 

@@ -55,7 +55,8 @@ public class BaseEntityTransformationProvider implements MessageBodyReader<Trans
                     .with(json)
                     .with(new RelationResolver(type,t).getRalations())
                     .with(repo)
-                    .transform(t);
+                    .transform();
+            //
              return t;
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(BaseEntityTransformationProvider.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,16 +64,6 @@ public class BaseEntityTransformationProvider implements MessageBodyReader<Trans
         throw new RuntimeException();
     }
     
-    
-    /**
-     * @Todo Fix,refactor simplify later...
-     * 
-     * @param clazz
-     * @param instance
-     * @return 
-     */
-   
-    
-    
+
     
 }
