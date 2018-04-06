@@ -29,7 +29,7 @@ public class TestApiMasterDetail {
         parent.addChildDetail(MockEntityParent.class,MockEntityChild.class, new MasterDetailFunction<MockEntityParent, MockEntityChild>() {
         },child, MoveOption.ORPHANS_ALLOWED);
         parent.addChildDetail(MockEntityParent.class,MockEntityChild.class, new MasterDetailFunction<MockEntityParent, MockEntityChild>() {
-        },child2, MoveOption.ONE_TO_ONE);
+        },child2, MoveOption.ORPHANS_ALLOWED);
     }
     
     
@@ -50,7 +50,7 @@ public class TestApiMasterDetail {
         assertEquals(MockEntityParent.class,parent.getChildDetails().get(1).getMasterDetailHolder().getMasterClass());
         assertEquals(MockEntityChild.class,parent.getChildDetails().get(1).getMasterDetailHolder().getChildClass());
         assertEquals(MoveOption.ORPHANS_ALLOWED,parent.getChildDetails().get(0).getMasterDetailHolder().getMoveOption());
-        assertEquals(MoveOption.ONE_TO_ONE,parent.getChildDetails().get(1).getMasterDetailHolder().getMoveOption());
+        assertEquals(MoveOption.ORPHANS_ALLOWED,parent.getChildDetails().get(1).getMasterDetailHolder().getMoveOption());
         assertEquals(child,parent.getChildDetails().get(0).getApi());
         assertEquals(child2,parent.getChildDetails().get(1).getApi());
         assertEquals(parent,parent.getChildDetails().get(1).getApi().getParent());

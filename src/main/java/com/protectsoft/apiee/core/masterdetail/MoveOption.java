@@ -6,6 +6,5 @@ package com.protectsoft.apiee.core.masterdetail;
  */
 public enum MoveOption {
     ORPHANS_ALLOWED,
-    ORPHANS_NOT_ALLOWED,
-    ONE_TO_ONE
+    ORPHANS_NOT_ALLOWED
 }

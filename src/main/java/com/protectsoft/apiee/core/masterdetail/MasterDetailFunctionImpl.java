@@ -11,30 +11,34 @@ import java.util.List;
  */
 class MasterDetailFunctionImpl <M extends BaseEntity,D extends BaseEntity> implements MasterDetailFunction<M, D> {
     
-    private final DetailsFunction<M,D> detailsFunction;
-    private final DetailFunction<M,D> detailFunction;
-    private final MasterFunction<M,D> masterFunction;
+    private final OneToManyFunction<M,D> oneToManyFunction;
+    private final OneToOneFunction<M,D> oneToOneFunction;
+    private final ManyToManyFunction<M,D> manyToManyFunction;
     
-    public MasterDetailFunctionImpl(DetailsFunction<M,D> detailsFunction,
-            DetailFunction<M,D> detailFunction,MasterFunction<M,D> masterFunction) {
-        this.detailsFunction = detailsFunction;
-        this.detailFunction = detailFunction;
-        this.masterFunction = masterFunction;
+    public MasterDetailFunctionImpl(OneToManyFunction<M,D> detailsFunction,
+            OneToOneFunction<M,D> detailFunction,ManyToManyFunction<M,D> manyToManyFunction) {
+        this.oneToManyFunction = detailsFunction;
+        this.oneToOneFunction = detailFunction;
+        this.manyToManyFunction = manyToManyFunction;
     }
     
     @Override
     public List<D> getDetails(M master){
-       return detailsFunction.getDetails(master);
+       return oneToManyFunction.getDetails(master);
     }
     
     @Override
     public D getDetail(M master){
-        return detailFunction.getDetail(master);
+        return oneToOneFunction.getDetail(master);
     };
     
     @Override
     public void setMaster(M master,D detail){
-        masterFunction.setMaster(master, detail);
+        manyToManyFunction.setMaster(master, detail);
     };
     
+    @Override
+    public void addMaster(M master,D detail) {
+        manyToManyFunction.addMaster(master, detail);
+    }
 }

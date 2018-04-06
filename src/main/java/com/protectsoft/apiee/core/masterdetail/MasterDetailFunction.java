@@ -19,6 +19,9 @@ public interface MasterDetailFunction<M extends BaseEntity,D extends BaseEntity>
     
     @Override
     default void setMaster(M master,D detail){};
+    
+    @Override
+    default void addMaster(M master,D detail){};
 
     @Override
     default void addDetail(M master, D detail){};

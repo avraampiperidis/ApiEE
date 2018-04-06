@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import com.protectsoft.apiee.base.interfaces.IResource;
 import com.protectsoft.apiee.core.exceptions.BusinessTierException;
-import com.protectsoft.apiee.core.masterdetail.MoveOption;
+import com.protectsoft.apiee.core.masterdetail.RelationType;
 import com.protectsoft.apiee.util.PagedList;
 import com.protectsoft.apiee.util.SearchUtil;
 
@@ -52,15 +52,26 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         for(Pair<MasterDetail,Api<? extends BaseEntity>> pair:getService().getChildDetails()) {
             if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())) {
                 M parent = getService().find(super.getRelation().getParentId());
-                if(pair.getMasterDetailHolder().getMoveOption().equals(MoveOption.ONE_TO_ONE)) {
-                    pair.getMasterDetailHolder().setDetail(parent, entity);
-                } else {
-                    pair.getMasterDetailHolder().addDetail(parent, entity);
-                }
                 Api<D> api = (Api<D>)pair.getApi();
-                pair.getMasterDetailHolder().setMaster(parent, entity);
                 api.create(entity);
-                
+                switch (pair.getMasterDetailHolder().getRelationType()) {
+                    case ONE_TO_ONE:
+                        pair.getMasterDetailHolder().setDetail(parent, entity);
+                        pair.getMasterDetailHolder().setMaster(parent, entity);
+                        break;
+                    case ONE_TO_MANY:
+                        pair.getMasterDetailHolder().addDetail(parent, entity);
+                        pair.getMasterDetailHolder().setMaster(parent, entity);
+                        break;
+                    case MANY_TO_MANY:
+                        pair.getMasterDetailHolder().addDetail(parent, entity);
+                        pair.getMasterDetailHolder().addMaster(parent, entity);
+                        break;   
+                    default:
+                        throw new RuntimeException("Wrong MasterDetailFunction");
+                }           
+                api.update(entity);
+                getService().update(parent);
                 return Response
                 .created(getNewPath(ui,entity))
                 .entity(entity)
@@ -95,7 +106,7 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
                 Api<D> api = (Api<D>)pair.getApi();
                 D detail = api.find(id);
                 M parent = getService().find(super.getRelation().getParentId());
-                if(pair.getMasterDetailHolder().getMoveOption().equals(MoveOption.ONE_TO_ONE)) {
+                if(pair.getMasterDetailHolder().getRelationType().equals(RelationType.ONE_TO_ONE)) {
                     pair.getMasterDetailHolder().removeDetail(parent,detail);
                 } else {
                     pair.getMasterDetailHolder().setDetail(parent, detail);

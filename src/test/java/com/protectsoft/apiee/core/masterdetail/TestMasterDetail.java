@@ -47,7 +47,40 @@ public class TestMasterDetail {
         assertEquals(parent,child.getParent());
     }
     
-    
+    @Test
+    public void testGetRelationType() {
+        md = new MasterDetail(MockEntityChild.class,MockEntityParent.class,new OneToOneFunction<MockEntityParent,MockEntityChild>() {
+                @Override
+                public MockEntityChild getDetail(MockEntityParent parent) {
+                     return null;
+                };
+                
+                @Override
+                public void setMaster(MockEntityParent parent,MockEntityChild child) {
+                    child.setParent(parent);
+                }
+                
+            },MoveOption.ORPHANS_ALLOWED){
+        };
+        
+        assertEquals(RelationType.ONE_TO_ONE,md.getRelationType());
+        
+        md = new MasterDetail(MockEntityChild.class,MockEntityParent.class,new OneToManyFunction<MockEntityParent,MockEntityChild>() {
+                @Override
+                public List getDetails(MockEntityParent parent) {
+                     return null;
+                };
+                
+                @Override
+                public void setMaster(MockEntityParent parent,MockEntityChild child) {
+                    child.setParent(parent);
+                }
+                
+            },MoveOption.ORPHANS_ALLOWED){
+        };
+        
+        assertEquals(RelationType.ONE_TO_MANY,md.getRelationType());
+    }
     
     //replace with mockito?
     private class MockEntityChild extends BaseEntityAUTO {

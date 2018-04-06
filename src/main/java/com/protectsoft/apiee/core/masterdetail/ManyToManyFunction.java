@@ -9,7 +9,10 @@ import java.util.List;
  * @param <M>
  * @param <D>
  */
-public interface DetailsFunction<M extends BaseEntity,D extends BaseEntity> extends MasterDetailFunction<M,D> {
+public interface ManyToManyFunction<M extends BaseEntity,D extends BaseEntity> extends MasterDetailFunction<M,D>{
     @Override
     List<D> getDetails(M master);  
+    
+    @Override
+    void addMaster(M master,D detail);
 }

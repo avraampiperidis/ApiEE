@@ -2,14 +2,15 @@ package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
-import com.protectsoft.apiee.core.masterdetail.DetailFunction;
-import com.protectsoft.apiee.core.masterdetail.DetailsFunction;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
-import com.protectsoft.apiee.core.masterdetail.MasterFunction;
+import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import com.protectsoft.apiee.core.masterdetail.OneToOneFunction;
+import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
+import java.util.List;
 
 /**
  *
@@ -47,22 +48,52 @@ public class TestContext {
         Context<BaseEntityAUTO> context = getContext();
         RuntimeException ex = null;
         try {
-            context.addChildDetail(null,null, (DetailFunction<BaseEntityAUTO,BaseEntityAUTO>) (BaseEntityAUTO master) -> null, null, MoveOption.ONE_TO_ONE);
+            context.addChildDetail(null,null, new OneToOneFunction(){
+                @Override
+                public BaseEntity getDetail(BaseEntity master) {
+                    return null;
+                }
+
+                @Override
+                public void setMaster(BaseEntity master, BaseEntity detail) {
+                }
+            }, null, MoveOption.ORPHANS_ALLOWED);
         }catch(RuntimeException e) {
             ex = e;
         }
         assertNotNull(ex);
         ex = null;
         try {
-            context.addChildDetail(null,null, (DetailsFunction<BaseEntityAUTO,BaseEntityAUTO>) (BaseEntityAUTO master) -> null, null, MoveOption.ONE_TO_ONE);
+            context.addChildDetail(null,null, new OneToManyFunction() {
+                @Override
+                public List getDetails(BaseEntity master) {
+                    return null;
+                }
+
+                @Override
+                public void setMaster(BaseEntity master, BaseEntity detail) {
+                }
+            }, null, MoveOption.ORPHANS_ALLOWED);
         }catch(RuntimeException e) {
             ex = e;
         }
         assertNotNull(ex);
         ex = null;
         try {
-            context.addChildDetail(null,null, (MasterFunction<BaseEntityAUTO,BaseEntityAUTO>) (BaseEntityAUTO master, BaseEntityAUTO detail) -> {
-            },null , MoveOption.ONE_TO_ONE);
+            context.addChildDetail(null,null,new ManyToManyFunction() {
+                @Override
+                public List getDetails(BaseEntity master) {
+                    return null;
+                }
+
+                @Override
+                public void addDetail(BaseEntity master, BaseEntity detail) {
+                }
+
+                @Override
+                public void addMaster(BaseEntity master, BaseEntity detail) {
+                }
+            },null , MoveOption.ORPHANS_ALLOWED);
         }catch(RuntimeException e) {
             ex = e;
         }
@@ -70,14 +101,7 @@ public class TestContext {
         throw ex;
     }
     
-    
-    @Test
-    public void testMasterDetailConstraint() {
-        Context<BaseEntityAUTO> context = new Api(BaseEntityAUTO.class) {};
-        context.addChildDetail(null,null,new MasterDetailFunction<BaseEntityAUTO,BaseEntityAUTO>(){},new Api(BaseEntityAUTO.class) {}, MoveOption.ONE_TO_ONE);
-    }
-    
-    
+   
     
     private <T extends BaseEntity> Context<T> getContext() {
         return (Context<T>) new Context<BaseEntity>(BaseEntity.class) {

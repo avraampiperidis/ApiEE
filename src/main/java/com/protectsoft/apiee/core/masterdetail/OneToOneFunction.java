@@ -8,7 +8,11 @@ import com.protectsoft.apiee.base.entities.BaseEntity;
  * @param <M>
  * @param <D>
  */
-public interface DetailFunction<M extends BaseEntity,D extends BaseEntity> extends MasterDetailFunction<M,D> {
+public interface OneToOneFunction<M extends BaseEntity,D extends BaseEntity> extends MasterDetailFunction<M,D> {
+    
     @Override
     D getDetail(M master);
+
+    @Override
+    void setMaster(M master,D detail);
 }

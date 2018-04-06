@@ -17,6 +17,8 @@ public interface IMasterDetailRelation<M extends BaseEntity,D extends BaseEntity
     
     void setMaster(M master,D detail);
     
+    void addMaster(M master,D detail);
+    
     void setDetail(M master,D detail);
     
     void addDetail(M master,D detail);

@@ -35,18 +35,7 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
         this.selector = selector;
     }
     
-    public MasterDetail(Class<M> masterClass,Class<D> detailClass,DetailsFunction<M,D> detailsFunction,
-            DetailFunction<M,D> detailFunction,MasterFunction<M,D> masterFunction,MoveOption mo) {
-        this(masterClass,detailClass,mo);
-        this.function = new MasterDetailFunctionImpl(detailsFunction,detailFunction,masterFunction); 
-    }
-    
-    public MasterDetail(Class<M> masterClass,Class<D> detailClass,DetailsFunction<M,D> detailsFunction,
-            DetailFunction<M,D> detailFunction,MasterFunction<M,D> masterFunction,MoveOption mo,String selector) {
-        this(masterClass,detailClass,detailsFunction,detailFunction,masterFunction,mo);
-        this.selector = selector;
-    }
-    
+   
     
     @Override
     public List<D> getDetails(M master) {
@@ -64,6 +53,11 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
     }
     
     @Override
+    public void addMaster(M master,D detail) {
+        this.function.addMaster(master, detail);
+    }
+    
+    @Override
     public void setDetail(M master, D detail) {
         this.function.setDetail(master, detail);
     }
@@ -71,6 +65,7 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
     @Override
     public void addDetail(M master, D detail) {
         this.function.addDetail(master, detail);
+        this.getDetails(master).add(detail);
     }
     
     @Override
@@ -107,6 +102,17 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
         return selector;
     }
 
+    
+    public RelationType getRelationType() {
+        if(this.function instanceof OneToOneFunction) {
+            return RelationType.ONE_TO_ONE;
+        } else if(this.function instanceof OneToManyFunction) {
+            return RelationType.ONE_TO_MANY;
+        } else if(this.function instanceof ManyToManyFunction) {
+            return RelationType.MANY_TO_MANY;
+        }
+        throw new RuntimeException("Wrong instance type of MasterDetailFunction");
+    }
 
    
 }

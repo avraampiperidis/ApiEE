@@ -62,7 +62,7 @@ public class TestMasterDetailFunction {
             public void setMaster(MockEntityParent master,MockEntityChild detail){
                 detail.setParent(master);
             };
-        },child2Facade, MoveOption.ONE_TO_ONE);
+        },child2Facade, MoveOption.ORPHANS_ALLOWED);
         parentFacade.addChildDetail(MyMock.MockEntityParent.class,MyMock.MockEntityChild2.class, new MasterDetailFunction<MyMock.MockEntityParent, MyMock.MockEntityChild2>() {
             @Override
             public List<MockEntityChild2> getDetails(MockEntityParent master){
@@ -76,7 +76,7 @@ public class TestMasterDetailFunction {
             public void setMaster(MockEntityParent master,MockEntityChild2 detail){
                 detail.setParent(master);
             };
-        },child3Facade, MoveOption.ONE_TO_ONE);
+        },child3Facade, MoveOption.ORPHANS_ALLOWED);
         
         child3Facade.addChildDetail(MyMock.MockEntityChild2.class, MyMock.MockEntityOtherChild.class,new MasterDetailFunction<MyMock.MockEntityChild2, MyMock.MockEntityOtherChild>() {
             @Override
