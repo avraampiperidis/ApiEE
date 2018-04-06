@@ -5,7 +5,6 @@
  */
 package com.protectsoft.apieeweb.endpoint;
 
-import com.protectsoft.apiee.base.boundary.Api;
 import com.protectsoft.apiee.base.endpoint.ApiResource;
 import com.protectsoft.apiee.base.endpoint.ApiSubResource;
 import com.protectsoft.apieeweb.boundary.OrganizationFacade;

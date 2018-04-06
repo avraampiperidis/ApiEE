@@ -5,6 +5,7 @@
  */
 package com.protectsoft.apieeweb.entity;
 
+import com.protectsoft.apiee.core.transformation.Transform;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Organization.findAll", query = "SELECT o FROM Organization o")
 })
-public class Organization extends BaseEntityAUTO  {
+public class Organization extends BaseEntityAUTO   {
     
     @Basic(optional = false)
     @NotNull

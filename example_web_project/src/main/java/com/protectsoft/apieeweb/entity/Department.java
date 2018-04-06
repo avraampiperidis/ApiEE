@@ -5,10 +5,16 @@
  */
 package com.protectsoft.apieeweb.entity;
 
+import com.protectsoft.apiee.core.transformation.Transform;
+import com.protectsoft.apiee.core.annotations.TransformBean;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.List;
-import javax.persistence.Basic;
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -19,8 +25,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -31,21 +35,23 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "DEPARTMENTS")
-@XmlRootElement
+@XmlRootElement()
 @NamedQueries({
     @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
 })
-public class Department extends BaseEntityAUTO  {
+public class Department extends BaseEntityAUTO implements Transform   {
     
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 85)
-    @Column(name = "DESCRIPTION", nullable = false, length = 85)
-    private String description;
     
-    @JoinColumn(name = "PARENT_ID",referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Department parent;
+    @Embedded
+    @AttributeOverrides({
+    @AttributeOverride(name="description", column=@Column(name="DESCRIPTION")),
+    })
+    @AssociationOverrides({
+      @AssociationOverride(name = "parent",
+                  joinColumns = @JoinColumn(name = "PARENT_ID",referencedColumnName = "ID"))
+    })
+    private EmbeddableDept embDept;
+
     
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Department> childs;
@@ -58,46 +64,11 @@ public class Department extends BaseEntityAUTO  {
     
     @JoinColumn(name = "ORGANIZATION_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @TransformBean
     private Organization organization;
     
     public Department() {}
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * @return the parent
-     */
-    @XmlTransient
-    public Department getParent() {
-        return parent;
-    }
-    
-    @XmlElement(name = "parent")
-    public Long getParentId() {
-        if(parent != null) {
-            return parent.getId();
-        }
-        return null;
-    }
-
-    /**
-     * @param parent the parent to set
-     */
-    public void setParent(Department parent) {
-        this.parent = parent;
-    }
 
     /**
      * @return the employees
@@ -147,6 +118,20 @@ public class Department extends BaseEntityAUTO  {
      */
     public void setChilds(List<Department> childs) {
         this.childs = childs;
+    }
+
+    /**
+     * @return the embDept
+     */
+    public EmbeddableDept getEmbDept() {
+        return embDept;
+    }
+
+    /**
+     * @param embDept the embDept to set
+     */
+    public void setEmbDept(EmbeddableDept embDept) {
+        this.embDept = embDept;
     }
     
 }

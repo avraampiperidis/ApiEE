@@ -5,9 +5,10 @@
  */
 package com.protectsoft.apieeweb.boundary;
 
-import com.protectsoft.apiee.base.boundary.Api;
-import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
+import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
+import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.Employee;
 import java.util.List;
@@ -27,9 +28,11 @@ public class DepartmentFacade extends Api<Department> {
     }
     
     @Inject
-    public DepartmentFacade(EmployeeFacade empService) {
+    public DepartmentFacade(DepartmentFacade childService,EmployeeFacade empService) {
         this();
-        super.addChildDetail(Department.class,Department.class,new MasterDetailFunction<Department,Department>() {
+        //one to many
+        //one department has many sub departments
+        super.addChildDetail(Department.class,Department.class,new OneToManyFunction<Department,Department>() {
                 @Override
                 public List<Department> getDetails(Department master) {
                     return master.getChilds();
@@ -37,16 +40,25 @@ public class DepartmentFacade extends Api<Department> {
 
                 @Override
                 public void setMaster(Department master,Department child) {
-                    child.setParent(master);
+                    child.getEmbDept().setParent(master);
                 }
-            },this, MoveOption.ORPHANS_ALLOWED);
+            },childService, MoveOption.ORPHANS_ALLOWED);
         
-        super.addChildDetail(Department.class,Employee.class, new MasterDetailFunction<Department,Employee>(){
-            @Override
-            public List<Employee> getDetails(Department parent) {
-                return parent.getEmployees();
-            }
-        }, empService, MoveOption.ORPHANS_ALLOWED);
+        //many to many
+        //one department has many employes
+        //but also one employee can work on many departments
+        addChildDetail(Department.class, Employee.class,new ManyToManyFunction<Department,Employee>() {
+                @Override
+                public List<Employee> getDetails(Department master) {
+                    return master.getEmployees();
+                }
+                
+                @Override
+                public void addMaster(Department master, Employee detail) {
+                    detail.getDepartments().add(master);
+                }
+            }, empService, MoveOption.ORPHANS_ALLOWED);
+        
     }
 
    

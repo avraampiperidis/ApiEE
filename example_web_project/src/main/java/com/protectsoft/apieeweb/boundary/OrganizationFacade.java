@@ -5,9 +5,9 @@
  */
 package com.protectsoft.apieeweb.boundary;
 
-import com.protectsoft.apiee.base.boundary.Api;
-import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
+import com.protectsoft.apiee.base.core.Api;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
+import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.Organization;
 import java.util.List;
@@ -29,10 +29,14 @@ public class OrganizationFacade extends Api<Organization> {
     public OrganizationFacade(DepartmentFacade departmentService) {
         this();
         
-        super.addChildDetail(Organization.class,Department.class,new MasterDetailFunction<Organization,Department>(){
+        super.addChildDetail(Organization.class,Department.class,new OneToManyFunction<Organization,Department>(){
             @Override
             public List<Department> getDetails(Organization parent) {
                 return parent.getDepartments();
+            }
+            @Override
+            public void setMaster(Organization master,Department detail) {
+                detail.setOrganization(master);
             }
         }, departmentService, MoveOption.ORPHANS_ALLOWED);
     }

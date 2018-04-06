@@ -5,7 +5,7 @@
  */
 package com.protectsoft.apieeweb.startup;
 
-import com.protectsoft.apiee.core.BaseConfig;
+import com.protectsoft.apiee.util.BaseConfig;
 import javax.ws.rs.ApplicationPath;
 
 /**
