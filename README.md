@@ -5,16 +5,18 @@ jax-rs,CDI,EJB,JPA2 <br>
 
 - [x] On Early development! 
 - [x] Update README.md with examples/tutorials(Jax-rs,Ejb,Master-Details)
-- [ ] Master Detail functionality
-- [ ] Search functionality
-- [ ] Complete some sort of basic functionality from below.
-- [ ] Complete-write junit tests/iTtests
-- [ ] Publish on maven central
-- [ ] BaseEntity to be the only class that all entities have to extend(problem with annotations)
-- [ ] Test Java EE specs coverage(JSR's)
+- [x] Master Detail functionality
+- [x] Search on details functionality
+- [x] Basic junit tests/iTtests
+- [x] Create on details (1t1,1tM,MtM)
+- [ ] Edit/Delete on details 
+- [ ] Test @Transform/TransformRelation
+- [ ] Generic Base Search with Criteria
 - [ ] Run/Test against java EE various implementations
+- [ ] Support Hibernate and Eclipselink
+- [ ] Support Spring
 - [ ] Documentation/api
-- [ ] Implement security?maybe shiro?
+- [ ] Publish on maven central
 
 
 <b>
