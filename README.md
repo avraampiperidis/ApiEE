@@ -9,7 +9,8 @@ jax-rs,CDI,EJB,JPA2 <br>
 - [x] Search on details functionality
 - [x] Basic junit tests/iTtests
 - [x] Create on details (1t1,1tM,MtM)
-- [ ] Edit/Delete on details 
+- [x] Edit/Delete on details 
+- [ ] IT Test CRUD Master/Details
 - [ ] Test @Transform/TransformRelation
 - [ ] Generic Base Search with Criteria
 - [ ] Create appropriate exception classes
