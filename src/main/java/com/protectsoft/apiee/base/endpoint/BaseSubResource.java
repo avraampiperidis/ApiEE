@@ -153,6 +153,16 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         }
         return details;
     }
-
+    
+    
+    <D extends BaseEntity> D getDetail() {
+        for(Pair<MasterDetail,Api<? extends BaseEntity>> pair:getService().getChildDetails()) {
+            if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())
+                    && pair.getMasterDetailHolder().getRelationType().equals(RelationType.ONE_TO_ONE)) {
+                return (D) pair.getMasterDetailHolder().getDetail(getService().find(super.getRelation().getParentId()));
+            }
+        }
+        return null;
+    }
     
 }

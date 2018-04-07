@@ -56,6 +56,10 @@ public class TestMasterDetail {
                 };
                 
                 @Override
+                public void setDetail(MockEntityParent master, MockEntityChild detail) {
+                }
+                
+                @Override
                 public void setMaster(MockEntityParent parent,MockEntityChild child) {
                     child.setParent(parent);
                 }

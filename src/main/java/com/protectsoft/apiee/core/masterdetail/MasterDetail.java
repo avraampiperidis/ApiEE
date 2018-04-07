@@ -64,7 +64,6 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
 
     @Override
     public void addDetail(M master, D detail) {
-        this.function.addDetail(master, detail);
         this.getDetails(master).add(detail);
     }
     

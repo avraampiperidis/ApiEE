@@ -2,7 +2,6 @@ package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
-import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
 import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import static org.junit.Assert.assertNotNull;
@@ -52,6 +51,10 @@ public class TestContext {
                 @Override
                 public BaseEntity getDetail(BaseEntity master) {
                     return null;
+                }
+                
+                @Override
+                public void setDetail(BaseEntity master, BaseEntity detail) {
                 }
 
                 @Override

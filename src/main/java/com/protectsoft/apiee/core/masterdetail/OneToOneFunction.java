@@ -12,6 +12,9 @@ public interface OneToOneFunction<M extends BaseEntity,D extends BaseEntity> ext
     
     @Override
     D getDetail(M master);
+    
+    @Override
+    void setDetail(M master,D detail);
 
     @Override
     void setMaster(M master,D detail);
