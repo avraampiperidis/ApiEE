@@ -50,13 +50,13 @@ public class BaseEntityTransformationProvider implements MessageBodyReader<Trans
             mapper.setAnnotationIntrospector(new IgnoreAnnotationIntrospector());
             JsonObject json = Json.createReader(entityStream).readObject();
             Transform  t = mapper.readValue(json.toString(), type);
-                        
+            
             Transformer.getTransformer()
                     .with(json)
                     .with(new RelationResolver(type,t).getRalations())
                     .with(repo)
                     .transform();
-            //
+            
              return t;
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(BaseEntityTransformationProvider.class.getName()).log(Level.SEVERE, null, ex);

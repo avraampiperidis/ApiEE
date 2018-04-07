@@ -70,7 +70,8 @@ public class MasterDetail<M extends BaseEntity,D extends BaseEntity> implements 
     
     @Override
     public void removeDetail(M master,D detail) {
-        this.function.removeDetail(master, detail);
+        this.function.getDetails(master).remove(detail);
+        this.setMaster(null,detail);
     }
     
     

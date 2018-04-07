@@ -50,6 +50,7 @@ public class RelationResolver {
                     tr.setFieldName(f.getName());
                     if(!mapper.getChilds().contains(tr)){
                         tr.setParent(mapper);
+                        tr.setIsAnnotationPresent(true);
                         mapper.getChilds().add(tr);
                     }
                 } else if(f.isAnnotationPresent(Embedded.class)) {

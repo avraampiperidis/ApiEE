@@ -9,11 +9,14 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
  * @author Abraham Piperidis
  */
 public class IgnoreAnnotationIntrospector extends JacksonAnnotationIntrospector {
+    
 
-    public IgnoreAnnotationIntrospector() {}
+    public IgnoreAnnotationIntrospector() {
+    }
     
     @Override
     public boolean hasIgnoreMarker(AnnotatedMember m) {
         return m.hasAnnotation(TransformBean.class);
     }
+    
 }

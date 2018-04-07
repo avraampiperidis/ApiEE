@@ -12,6 +12,7 @@ jax-rs,CDI,EJB,JPA2 <br>
 - [ ] Edit/Delete on details 
 - [ ] Test @Transform/TransformRelation
 - [ ] Generic Base Search with Criteria
+- [ ] Create appropriate exception classes
 - [ ] Run/Test against java EE various implementations
 - [ ] Support Hibernate and Eclipselink
 - [ ] Support Spring

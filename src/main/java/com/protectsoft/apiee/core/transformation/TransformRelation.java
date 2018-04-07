@@ -16,6 +16,7 @@ public class TransformRelation {
     private Method method;
     private String fieldName;
     private boolean isEmbedded;
+    private boolean isAnnotationPresent;
     private TransformRelation parent;
     private final List<TransformRelation> childs;
     
@@ -98,6 +99,20 @@ public class TransformRelation {
     public void setIsEmbedded(boolean isEmbedded) {
         this.isEmbedded = isEmbedded;
     }
+    
+    /**
+     * @return the isAnnotationPresent
+     */
+    public boolean isIsAnnotationPresent() {
+        return isAnnotationPresent;
+    }
+
+    /**
+     * @param isAnnotationPresent the isAnnotationPresent to set
+     */
+    public void setIsAnnotationPresent(boolean isAnnotationPresent) {
+        this.isAnnotationPresent = isAnnotationPresent;
+    }
 
     /**
      * @return the parent
@@ -154,6 +169,5 @@ public class TransformRelation {
         return "{instance:"+instance.getClass()+",type:"+type+",method:"+method+",fieldName:"+fieldName;
     }
 
-    
     
 }

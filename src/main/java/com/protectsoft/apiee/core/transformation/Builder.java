@@ -33,7 +33,16 @@ class Builder {
         }else if(json.containsKey(t.getFieldName()) && !json.isNull(t.getFieldName()) 
                 && JsonValue.ValueType.NUMBER.equals(json.get(t.getFieldName()).getValueType())) {
             try {
-                t.getMethod().invoke(instance,transformer.getRepo().getEntityManager().find(t.getType(),json.getJsonNumber(t.getFieldName()).longValueExact()));
+                t.getMethod().invoke(instance,transformer.getRepo()
+                        .getEntityManager().find(t.getType(),json.getJsonNumber(t.getFieldName()).longValueExact()));
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if(t.isIsAnnotationPresent() && json.containsKey(t.getFieldName()) && !json.isNull(t.getFieldName()) 
+                && JsonValue.ValueType.OBJECT.equals(json.get(t.getFieldName()).getValueType())) {
+            try {
+                t.getMethod().invoke(instance,transformer.getRepo()
+                        .getEntityManager().find(t.getType(),json.getJsonObject(t.getFieldName()).getJsonNumber("id").longValueExact()));
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
             }

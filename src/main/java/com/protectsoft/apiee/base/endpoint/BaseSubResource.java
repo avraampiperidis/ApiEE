@@ -53,25 +53,10 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
             if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())) {
                 M parent = getService().find(super.getRelation().getParentId());
                 Api<D> api = (Api<D>)pair.getApi();
+                this.set(pair,parent,entity);
                 api.create(entity);
-                switch (pair.getMasterDetailHolder().getRelationType()) {
-                    case ONE_TO_ONE:
-                        pair.getMasterDetailHolder().setDetail(parent, entity);
-                        pair.getMasterDetailHolder().setMaster(parent, entity);
-                        break;
-                    case ONE_TO_MANY:
-                        pair.getMasterDetailHolder().addDetail(parent, entity);
-                        pair.getMasterDetailHolder().setMaster(parent, entity);
-                        break;
-                    case MANY_TO_MANY:
-                        pair.getMasterDetailHolder().addDetail(parent, entity);
-                        pair.getMasterDetailHolder().addMaster(parent, entity);
-                        break;   
-                    default:
-                        throw new RuntimeException("Wrong MasterDetailFunction");
-                }           
-                api.update(entity);
                 getService().update(parent);
+                
                 return Response
                 .created(getNewPath(ui,entity))
                 .entity(entity)
@@ -86,8 +71,12 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
     public D edit(Long id, D entity) {
         for(Pair<MasterDetail,Api<? extends BaseEntity>> pair:getService().getChildDetails()) {
             if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())) {
+                M parent = getService().find(super.getRelation().getParentId());
                 Api<D> api = (Api<D>)pair.getApi();
-                return api.update(id, entity);
+                this.set(pair,parent,entity);
+                api.update(id, entity);
+                getService().update(parent);
+                return entity;
             }
         }
         throw new RuntimeException();
@@ -106,11 +95,13 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
                 Api<D> api = (Api<D>)pair.getApi();
                 D detail = api.find(id);
                 M parent = getService().find(super.getRelation().getParentId());
-                if(pair.getMasterDetailHolder().getRelationType().equals(RelationType.ONE_TO_ONE)) {
+                if(pair.getMasterDetailHolder().getRelationType().equals(RelationType.MANY_TO_MANY)
+                        || pair.getMasterDetailHolder().getRelationType().equals(RelationType.ONE_TO_MANY)) {
                     pair.getMasterDetailHolder().removeDetail(parent,detail);
-                } else {
-                    pair.getMasterDetailHolder().setDetail(parent, detail);
+                } else if(pair.getMasterDetailHolder().getRelationType().equals(RelationType.ONE_TO_ONE)) {
+                    pair.getMasterDetailHolder().setDetail(parent, null);
                 }
+                getService().update(parent);
                 api.delete(detail);
                 return Response.noContent().build();
             }
@@ -130,8 +121,26 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         ctx.setProperty("X-Total-Count", result.getOriginalSize());
         return result.getFilteredList();
     }
-    
-    
+
+
+    private void set(Pair<MasterDetail, Api<? extends BaseEntity>> pair, M parent, D entity) {
+        switch (pair.getMasterDetailHolder().getRelationType()) {
+                    case ONE_TO_ONE:
+                        pair.getMasterDetailHolder().setDetail(parent, entity);
+                        pair.getMasterDetailHolder().setMaster(parent, entity);
+                        break;
+                    case ONE_TO_MANY:
+                        pair.getMasterDetailHolder().addDetail(parent, entity);
+                        pair.getMasterDetailHolder().setMaster(parent, entity);
+                        break;
+                    case MANY_TO_MANY:
+                        pair.getMasterDetailHolder().addDetail(parent, entity);
+                        pair.getMasterDetailHolder().addMaster(parent, entity);
+                        break;   
+                    default:
+                        throw new RuntimeException("Wrong MasterDetailFunction");
+        }    
+    }
     
     //maybe eager loaded/init it once on constructor?????
     private <M extends BaseEntity> List<D> getDetails() {
