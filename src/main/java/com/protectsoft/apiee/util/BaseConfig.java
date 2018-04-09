@@ -14,7 +14,6 @@ public class BaseConfig extends ResourceConfig  {
          packages("com.protectsoft.apiee.base.endpoint;" 
                 + "com.protectsoft.apiee.core.exceptions.providers;" 
          );
-        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
     }
         
     public BaseConfig(String packages,Class<?>... classes){

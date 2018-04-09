@@ -6,6 +6,7 @@
 package com.protectsoft.apieeweb.entity;
 
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -52,7 +53,9 @@ public class Employee extends BaseEntityAUTO   {
             inverseJoinColumns=@JoinColumn(name="DEPARTMENT_ID",referencedColumnName="ID"))
     private List<Department> departments;
 
-    public Employee() {}
+    public Employee() {
+        this.departments = new ArrayList<>();
+    }
 
     /**
      * @return the firstName

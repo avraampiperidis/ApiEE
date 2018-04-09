@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,8 +50,17 @@ public class EmbeddableDept {
     /**
      * @return the parent
      */
+    @XmlTransient
     public Department getParent() {
         return parent;
+    }
+    
+    @XmlElement(name = "parent")
+    public Long getParentId() {
+        if(parent != null){
+            return parent.getId();
+        }
+        return null;
     }
 
     /**

@@ -6,10 +6,12 @@
 package com.protectsoft.apieeweb.endpoint;
 
 import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.base.endpoint.ApiOneToOneSubResource;
 import com.protectsoft.apiee.base.endpoint.ApiResource;
 import com.protectsoft.apiee.base.endpoint.ApiSubResource;
 import com.protectsoft.apieeweb.boundary.DepartmentFacade;
 import com.protectsoft.apieeweb.entity.Department;
+import com.protectsoft.apieeweb.entity.DepartmentInfo;
 import com.protectsoft.apieeweb.entity.Employee;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -27,6 +29,7 @@ import javax.ws.rs.core.UriInfo;
  */
 @Path("departments")
 public class DepartmentResource extends ApiResource<Department> {
+
 
  
     @Inject
@@ -49,11 +52,20 @@ public class DepartmentResource extends ApiResource<Department> {
     
     @Path("{id}/employees")
     public ApiSubResource subResource2(@PathParam("id") Long id) {
-        System.out.println("subResource2");
         return new SubResource2(id,getService());
+    }
+    
+    @Path("{id}/departmentInfo")
+    public ApiOneToOneSubResource subResource3(@PathParam("id") Long id) {
+        return new SubResource3(id,getService());
     }
 
     
+    public class SubResource3 extends ApiOneToOneSubResource<Department,DepartmentInfo> {
+        public SubResource3(Long id,Api<Department> service) {
+            super(id,service,DepartmentInfo.class);
+        }
+    }
     
     public class SubResource2 extends ApiSubResource<Department,Employee> {
         public SubResource2(Long id,Api<Department> service) {

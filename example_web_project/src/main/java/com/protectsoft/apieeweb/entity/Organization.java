@@ -5,7 +5,6 @@
  */
 package com.protectsoft.apieeweb.entity;
 
-import com.protectsoft.apiee.core.transformation.Transform;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.List;
 import javax.persistence.Basic;

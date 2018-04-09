@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -66,6 +67,10 @@ public class Department extends BaseEntityAUTO implements Transform   {
     @ManyToOne(fetch = FetchType.LAZY)
     @TransformBean
     private Organization organization;
+    
+    @OneToOne(mappedBy = "department")
+    private DepartmentInfo departmentInfo;
+    
     
     public Department() {}
 
@@ -132,6 +137,20 @@ public class Department extends BaseEntityAUTO implements Transform   {
      */
     public void setEmbDept(EmbeddableDept embDept) {
         this.embDept = embDept;
+    }
+
+    /**
+     * @return the departmentInfo
+     */
+    public DepartmentInfo getDepartmentInfo() {
+        return departmentInfo;
+    }
+
+    /**
+     * @param departmentInfo the departmentInfo to set
+     */
+    public void setDepartmentInfo(DepartmentInfo departmentInfo) {
+        this.departmentInfo = departmentInfo;
     }
     
 }
