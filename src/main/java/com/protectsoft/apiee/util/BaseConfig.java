@@ -13,6 +13,7 @@ public class BaseConfig extends ResourceConfig  {
          super();
          packages("com.protectsoft.apiee.base.endpoint;" 
                 + "com.protectsoft.apiee.core.exceptions.providers;" 
+                + "com.protectsoft.apiee.base.endpoint.jaxrs;" 
          );
     }
         
@@ -21,8 +22,6 @@ public class BaseConfig extends ResourceConfig  {
         packages(packages);
         for(Class<?> c: classes){
             register(c);
-        }
-       
-        register(StartUpHandler.class);
+        }       
     }
 }

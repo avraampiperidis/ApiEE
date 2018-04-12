@@ -1,6 +1,8 @@
-package com.protectsoft.apiee.base.endpoint;
+package com.protectsoft.apiee.base.endpoint.jaxrs;
 
 import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.base.endpoint.BaseSubResource;
+import com.protectsoft.apiee.base.endpoint.interfaces.IJaxRsResource;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.json.JsonObject;
@@ -29,7 +31,7 @@ import javax.ws.rs.core.UriInfo;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends BaseEntity> 
-        extends BaseSubResource<M, D> {
+        extends BaseSubResource<M, D> implements IJaxRsResource<D>  {
     
     public ApiOneToOneSubResource(Long id,Api<M> service,Class<D> childClass) {
         super(id,service,childClass);
@@ -48,7 +50,11 @@ public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends Ba
         if(super.getDetail() != null){
             throw new EntityExistsException();
         }
-        return super.create(ui, entity);
+        
+        return Response
+                .created(getNewPath(ui,super.create(entity)))
+                .entity(entity)
+                .build();
     }
     
     @PUT

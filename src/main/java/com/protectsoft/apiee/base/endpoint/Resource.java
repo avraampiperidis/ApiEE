@@ -5,6 +5,7 @@ import com.protectsoft.apiee.base.core.Relation;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.net.URI;
 import javax.ws.rs.core.UriInfo;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
@@ -44,5 +45,12 @@ public abstract class Resource<T extends BaseEntity>   {
     
     public <D extends BaseEntity> URI getNewPath(UriInfo ui,D entity) {
         return ui.getAbsolutePathBuilder().path(entity.getId().toString()).build();
+    }
+    
+    
+    public <D extends BaseEntity> URI getNewPathSpring(D entity) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .buildAndExpand(entity.getId().toString()).toUri();
     }
 }

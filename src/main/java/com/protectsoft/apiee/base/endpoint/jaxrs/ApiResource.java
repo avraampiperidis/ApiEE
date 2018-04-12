@@ -1,7 +1,9 @@
 
-package com.protectsoft.apiee.base.endpoint;
+package com.protectsoft.apiee.base.endpoint.jaxrs;
 
 import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.base.endpoint.BaseResource;
+import com.protectsoft.apiee.base.endpoint.interfaces.IJaxRsResource;
 import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.json.JsonObject;
@@ -25,7 +27,7 @@ import javax.ws.rs.core.UriInfo;
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> {
+public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> implements IJaxRsResource<T>  {
     
     
     public ApiResource(Api<T> service) {
@@ -48,7 +50,11 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @POST
     @Override
     public Response create(@Context UriInfo ui, T entity) {
-        return super.create(ui, entity); 
+        super.create(entity);
+        return Response
+                .created(super.getNewPath(ui,entity))
+                .entity(entity)
+                .build();
     }
 
     @PUT
