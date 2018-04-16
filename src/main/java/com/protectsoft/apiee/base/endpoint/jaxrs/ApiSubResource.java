@@ -56,8 +56,8 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
     @PUT
     @Path("{id}")
     @Override
-    public D edit(@PathParam("id") Long id,D entity) {
-        return super.edit(id, entity);
+    public Response edit(@PathParam("id") Long id,D entity) {
+        return Response.ok(super.implementEdit(id, entity)).build();
     }
 
     @GET
@@ -84,7 +84,8 @@ public abstract class ApiSubResource<M extends BaseEntity, D  extends BaseEntity
     @Path("{id}")
     @Override
     public Response remove(@PathParam("id") Long id) {
-        return (Response) super.remove(id);
+        super.implementRemove(id);
+        return Response.noContent().build();
     }
 
     @POST

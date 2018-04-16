@@ -60,14 +60,14 @@ public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends Ba
     @PUT
     @Path("{id}")
     @Override
-    public D edit(@PathParam("id") Long id,D entity) {
+    public Response edit(@PathParam("id") Long id,D entity) {
         throw new NotFoundException();
     }
     
     @PUT
-    public D edit(D entity) {
+    public Response edit(D entity) {
         D db = super.getDetail();
-        return super.edit(db.getId(), entity);
+        return Response.ok(super.implementEdit(db.getId(), entity)).build();
     }
     
     @GET
@@ -103,7 +103,8 @@ public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends Ba
     
     @DELETE
     public Response remove() {
-        return (Response) super.remove(super.getDetail().getId());
+        super.implementRemove(super.getDetail().getId());
+        return Response.noContent().build();
     }
 
     @POST

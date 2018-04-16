@@ -7,8 +7,9 @@ import com.protectsoft.apiee.base.entities.BaseEntity;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.ws.rs.container.ContainerRequestContext;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,16 +29,51 @@ public class ApiSpringResource<T extends BaseEntity> extends BaseResource<T> imp
 
     @RequestMapping(method = RequestMethod.POST)
     @Override
-    public ResponseEntity<T> create(@Autowired HttpServletRequest request,@RequestBody T entity) {
+    public ResponseEntity<T> createEntity(@RequestBody T entity) {
         super.create(entity);
         return ResponseEntity
                 .created(super.getNewPathSpring(entity))
                 .body(entity);
     }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    @Override
+    public List<T> findAll() {
+        return super.findAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "{id}")
+    @Override
+    public T find(@PathVariable("id") Long id) {
+        return super.find(id);
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.PUT,value = "{id}")
+    @Override
+    public ResponseEntity<T> edit(@PathVariable("id") Long id,@RequestBody T entity) {
+        return ResponseEntity.ok(super.implementEdit(id, entity));
+    }
+    
+    @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
+    @Override
+    public ResponseEntity remove(@PathVariable("id") Long id) {
+        super.implementRemove(id);
+        return ResponseEntity.noContent().build();
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.GET,value = "{from}/{to}")
+    @Override
+    public List<T> findRange(@PathVariable("from") Integer from,@PathVariable("to") Integer to) {
+        return super.findRange(from, to);
+    }
+    
 
     @Override
+    @RequestMapping(method = RequestMethod.POST,value = "search")
     public List<T> search(HttpServletRequest request, JsonObject search) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.search((ContainerRequestContext) request, search);
     }
     
 }

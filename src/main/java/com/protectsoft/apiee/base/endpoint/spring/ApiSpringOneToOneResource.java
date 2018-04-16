@@ -9,7 +9,6 @@ import javax.json.JsonObject;
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +38,7 @@ public class ApiSpringOneToOneResource<M extends BaseEntity, D  extends BaseEnti
 
     @RequestMapping(method = RequestMethod.POST)
     @Override
-    public ResponseEntity<D> create(@Autowired HttpServletRequest request,@RequestBody D entity) {
+    public ResponseEntity<D> createEntity(@RequestBody D entity) {
         if(super.getDetail() != null){
             throw new EntityExistsException();
         }
@@ -50,20 +49,20 @@ public class ApiSpringOneToOneResource<M extends BaseEntity, D  extends BaseEnti
     
     @RequestMapping(method = RequestMethod.PUT,value = "{id}")
     @Override
-    public D edit(@PathVariable Long id,@RequestBody D entity) {
+    public ResponseEntity<D> edit(@PathVariable("id") Long id,@RequestBody D entity) {
         throw new NotFoundException();
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public D edit(@RequestBody D entity) {
+    public ResponseEntity<D> edit(@RequestBody D entity) {
         D db = super.getDetail();
-        return super.edit(db.getId(), entity);
+        return ResponseEntity.ok(super.implementEdit(db.getId(), entity));
     }
     
     
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
     @Override
-    public D find(@PathVariable Long id) {
+    public D find(@PathVariable("id") Long id) {
         return super.getDetail();
     }
     
@@ -79,19 +78,20 @@ public class ApiSpringOneToOneResource<M extends BaseEntity, D  extends BaseEnti
     
     @RequestMapping(method = RequestMethod.GET,value = "{from}/{to}")
     @Override
-    public List<D> findRange(@PathVariable Integer from,@PathVariable Integer to) {
+    public List<D> findRange(@PathVariable("from") Integer from,@PathVariable("to") Integer to) {
         throw new NotFoundException();
     }
     
     @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
     @Override
-    public ResponseEntity remove(@PathVariable Long id) {
+    public ResponseEntity remove(@PathVariable("id") Long id) {
         throw new NotFoundException();
     }
     
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity remove() {
-        return (ResponseEntity) super.remove(super.getDetail().getId());
+        super.implementRemove(super.getDetail().getId());
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "search")

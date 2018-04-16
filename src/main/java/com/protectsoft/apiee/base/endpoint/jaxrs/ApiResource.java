@@ -61,14 +61,15 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @Path("{id}")
     @Override
     public Response edit(@PathParam("id") Long id, T entity) {
-        return super.edit(id, entity); 
+        return Response.ok(super.implementEdit(id, entity)).build(); 
     }
 
     @DELETE
     @Path("{id}")
     @Override
     public Response remove(@PathParam("id") Long id) {
-        return super.remove(id); 
+        super.implementRemove(id);
+        return Response.noContent().build();
     }
 
     @GET

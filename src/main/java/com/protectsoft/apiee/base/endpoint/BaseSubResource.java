@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Response;
 import com.protectsoft.apiee.core.exceptions.BusinessTierException;
 import com.protectsoft.apiee.core.masterdetail.RelationType;
 import com.protectsoft.apiee.util.PagedList;
@@ -28,7 +27,8 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         super(service,new Relation(id,childClass));
     }
     
-        public List<D> findAll() {
+    
+    public List<D> findAll() {
         return getDetails();
     }
     
@@ -58,7 +58,7 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
     }
     
 
-    public D edit(Long id, D entity) {
+    public D implementEdit(Long id, D entity) {
         for(Pair<MasterDetail,Api<? extends BaseEntity>> pair:getService().getChildDetails()) {
             if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())) {
                 M parent = getService().find(super.getRelation().getParentId());
@@ -77,7 +77,7 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
         return getDetails().subList(from, to);
     }
 
-    public Object remove(Long id) {
+    public void implementRemove(Long id) {
          for(Pair<MasterDetail,Api<? extends BaseEntity>> pair:getService().getChildDetails()) {
             if(pair.getMasterDetailHolder().getChildClass().equals(super.getRelation().getChildClass())) {
                 Api<D> api = (Api<D>)pair.getApi();
@@ -91,7 +91,7 @@ public abstract class BaseSubResource<M extends BaseEntity, D  extends BaseEntit
                 }
                 getService().update(parent);
                 api.delete(detail);
-                return Response.noContent().build();
+                return;
             }
         }
         throw new RuntimeException();

@@ -8,7 +8,6 @@ import com.protectsoft.apiee.core.exceptions.RequestException;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -34,21 +33,20 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     }
     
     
-    public Response edit(Long id, T entity) {
+    public T implementEdit(Long id, T entity) {
         if(entity == null) {
             throw new RequestException();
         }
-        return Response.ok().entity(getService().update(id, entity)).build();
+        return getService().update(id, entity);
     }
     
     
-    public Response remove(Long id) {
+    public void implementRemove(Long id) {
         T o = getService().find(id);
         if(o == null) {
             throw new EntityNotExists(id, getService().getEntitySimpleName());
         }
         getService().delete(o);
-        return Response.noContent().build();
     }
     
     
