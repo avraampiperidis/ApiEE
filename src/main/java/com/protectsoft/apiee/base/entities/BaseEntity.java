@@ -4,12 +4,10 @@ package com.protectsoft.apiee.base.entities;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbTransient;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Ancestor of every <i>Entity</i> in the Application.
  */
-@XmlRootElement()
 public abstract class BaseEntity implements Serializable  {
 
     protected BaseEntity() {
