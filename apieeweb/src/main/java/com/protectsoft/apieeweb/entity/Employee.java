@@ -8,6 +8,7 @@ package com.protectsoft.apieeweb.entity;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
@@ -89,6 +88,7 @@ public class Employee extends BaseEntityAUTO   {
      * @return the departments
      */
     @XmlTransient
+    @JsonbTransient
     public List<Department> getDepartments() {
         return departments;
     }

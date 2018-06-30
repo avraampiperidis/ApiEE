@@ -6,7 +6,6 @@
 package com.protectsoft.apieeweb.boundary;
 
 import com.protectsoft.apiee.base.core.Api;
-import com.protectsoft.apiee.base.entities.BaseEntity;
 import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
 import com.protectsoft.apiee.core.masterdetail.MoveOption;
 import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
@@ -45,7 +44,7 @@ public class DepartmentFacade extends Api<Department> {
                 public void setMaster(Department master,Department child) {
                     child.getEmbDept().setParent(master);
                 }
-            },childService, MoveOption.ORPHANS_ALLOWED);
+        },childService, MoveOption.ORPHANS_ALLOWED);
         
         //many to many
         //one department has many employes
@@ -60,8 +59,7 @@ public class DepartmentFacade extends Api<Department> {
                 public void addMaster(Department master, Employee detail) {
                     detail.getDepartments().add(master);
                 }
-            }, empService, MoveOption.ORPHANS_ALLOWED);
-        
+        }, empService, MoveOption.ORPHANS_ALLOWED);
         
         //One To One
         //one Department has One Departnemt Information
@@ -84,9 +82,4 @@ public class DepartmentFacade extends Api<Department> {
         
     }
 
-   
-  
-
-  
-    
 }

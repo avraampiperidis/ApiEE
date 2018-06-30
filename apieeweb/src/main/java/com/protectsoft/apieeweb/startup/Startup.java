@@ -10,13 +10,13 @@ import javax.ws.rs.ApplicationPath;
 
 /**
  *
- * @author piper
+ * @author piper 
  */
 @ApplicationPath("api")
 public class Startup extends BaseConfig {
    
     public Startup() {
-        packages("com.protectsoft.apieeweb.endpoint;");
+        packages("com.protectsoft.apieeweb.endpoint;");       
     }
     
 }

@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface IRepository<T extends BaseEntity> {
+public interface IRepository<T extends BaseEntity>  {
     
     List<T> findAll();
     

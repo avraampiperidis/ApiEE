@@ -1,6 +1,7 @@
 
 package com.protectsoft.apiee.util;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -11,6 +12,7 @@ public class BaseConfig extends ResourceConfig  {
     
     public BaseConfig() {
          super();
+         register(JacksonJaxbJsonProvider.class);
          packages("com.protectsoft.apiee.base.endpoint;" 
                 + "com.protectsoft.apiee.core.exceptions.providers;" 
                 + "com.protectsoft.apiee.base.endpoint.jaxrs;" 

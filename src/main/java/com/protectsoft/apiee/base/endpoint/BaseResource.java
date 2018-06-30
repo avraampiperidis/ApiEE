@@ -20,11 +20,11 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
         super(t);
     }
     
-    public List<T> findAll() {
+    public List<T> baseFindAll() {
         return getService().findAll();
     }
     
-    public  T create(T entity) {
+    public  T baseCreate(T entity) {
         if(entity == null) {
             throw new RequestException();
         }
@@ -33,7 +33,7 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     }
     
     
-    public T implementEdit(Long id, T entity) {
+    public T baseEdit(Long id, T entity) {
         if(entity == null) {
             throw new RequestException();
         }
@@ -41,7 +41,7 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     }
     
     
-    public void implementRemove(Long id) {
+    public void baseRemove(Long id) {
         T o = getService().find(id);
         if(o == null) {
             throw new EntityNotExists(id, getService().getEntitySimpleName());
@@ -50,7 +50,7 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     }
     
     
-    public T find(Long id) {
+    public T baseFind(Long id) {
         T entity = getService().find(id);
         if(entity == null) {
             throw new EntityNotExists(id, getService().getEntitySimpleName());
@@ -59,16 +59,16 @@ public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     }
     
     
-    public List<T> findRange(Integer from, Integer to) {
+    public List<T> baseFindRange(Integer from, Integer to) {
         return getService().findRange(new int[]{from, to});
     }
 
-    public Integer count() {
+    public Integer baseCount() {
         return getService().count();
     }
     
     
-    public List<T> search(ContainerRequestContext ctx, JsonObject search_clauses) {
+    public List<T> baseSearch(ContainerRequestContext ctx, JsonObject search_clauses) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
    

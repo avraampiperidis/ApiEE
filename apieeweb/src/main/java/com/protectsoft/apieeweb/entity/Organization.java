@@ -7,6 +7,8 @@ package com.protectsoft.apieeweb.entity;
 
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.List;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,9 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author piper
  */
 @Entity
-@Table(name = "ORGANIZATION")
-@XmlRootElement
-@NamedQueries({
+@Table(name = "ORGANIZATION")@NamedQueries({
     @NamedQuery(name = "Organization.findAll", query = "SELECT o FROM Organization o")
 })
 public class Organization extends BaseEntityAUTO   {
@@ -77,11 +76,13 @@ public class Organization extends BaseEntityAUTO   {
      * @return the parent
      */
     @XmlTransient
+    @JsonbTransient
     public Organization getParent() {
         return parent;
     }
     
     @XmlElement(name = "parent")
+    @JsonbProperty("parent")
     public Long getparentId() {
         if(parent != null) {
             return parent.getId();
@@ -100,6 +101,7 @@ public class Organization extends BaseEntityAUTO   {
      * @return the departments
      */
     @XmlTransient
+    @JsonbTransient
     public List<Department> getDepartments() {
         return departments;
     }
@@ -129,6 +131,7 @@ public class Organization extends BaseEntityAUTO   {
      * @return the childs
      */
     @XmlTransient
+    @JsonbTransient
     public List<Organization> getChilds() {
         return childs;
     }

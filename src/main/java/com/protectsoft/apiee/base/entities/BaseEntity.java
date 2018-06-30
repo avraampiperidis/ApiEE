@@ -3,15 +3,13 @@ package com.protectsoft.apiee.base.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Ancestor of every <i>Entity</i> in the Application.
  */
+@XmlRootElement()
 public abstract class BaseEntity implements Serializable  {
 
     protected BaseEntity() {
@@ -47,12 +45,7 @@ public abstract class BaseEntity implements Serializable  {
         return this.getClass().getName() + "[ id=" + getId() + " ]";
     }
     
-    public Set<ConstraintViolation<BaseEntity>> getConstraintVaiolations() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = (Validator) factory.getValidator();
-        return validator.validate(this);
-    }
-    
+    @JsonbTransient
     public boolean isValid() {
         return true;
     }

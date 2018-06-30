@@ -76,7 +76,7 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
         if(entity == null)
             throw new EntityNotExists(id, getEntitySimpleName());
         if(!Objects.equals(id, dto.getId()))
-            throw new EntityException(400, 104, "Ασυμφωνία ID.");      
+            throw new EntityException(400, 104, "ID inequality");      
         validateUpdate(entity, dto);
         validate(dto);
         return getRepo().update(dto);

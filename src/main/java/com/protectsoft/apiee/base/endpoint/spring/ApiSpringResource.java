@@ -30,7 +30,7 @@ public class ApiSpringResource<T extends BaseEntity> extends BaseResource<T> imp
     @RequestMapping(method = RequestMethod.POST)
     @Override
     public ResponseEntity<T> createEntity(@RequestBody T entity) {
-        super.create(entity);
+        super.baseCreate(entity);
         return ResponseEntity
                 .created(super.getNewPathSpring(entity))
                 .body(entity);
@@ -39,26 +39,31 @@ public class ApiSpringResource<T extends BaseEntity> extends BaseResource<T> imp
     @RequestMapping(method = RequestMethod.GET)
     @Override
     public List<T> findAll() {
-        return super.findAll();
+        return super.baseFindAll();
     }
     
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
     @Override
     public T find(@PathVariable("id") Long id) {
-        return super.find(id);
+        return super.baseFind(id);
+    }
+    
+    @Override
+    public Integer count() {
+        return super.baseCount();
     }
     
     
     @RequestMapping(method = RequestMethod.PUT,value = "{id}")
     @Override
     public ResponseEntity<T> edit(@PathVariable("id") Long id,@RequestBody T entity) {
-        return ResponseEntity.ok(super.implementEdit(id, entity));
+        return ResponseEntity.ok(super.baseEdit(id, entity));
     }
     
     @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
     @Override
     public ResponseEntity remove(@PathVariable("id") Long id) {
-        super.implementRemove(id);
+        super.baseRemove(id);
         return ResponseEntity.noContent().build();
     }
     
@@ -66,14 +71,16 @@ public class ApiSpringResource<T extends BaseEntity> extends BaseResource<T> imp
     @RequestMapping(method = RequestMethod.GET,value = "{from}/{to}")
     @Override
     public List<T> findRange(@PathVariable("from") Integer from,@PathVariable("to") Integer to) {
-        return super.findRange(from, to);
+        return super.baseFindRange(from, to);
     }
     
 
     @Override
     @RequestMapping(method = RequestMethod.POST,value = "search")
     public List<T> search(HttpServletRequest request, JsonObject search) {
-        return super.search((ContainerRequestContext) request, search);
+        return super.baseSearch((ContainerRequestContext) request, search);
     }
+
+    
     
 }

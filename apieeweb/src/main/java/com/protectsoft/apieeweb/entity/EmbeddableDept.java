@@ -6,6 +6,7 @@
 package com.protectsoft.apieeweb.entity;
 
 import com.protectsoft.apiee.core.annotations.TransformBean;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -51,6 +52,7 @@ public class EmbeddableDept {
      * @return the parent
      */
     @XmlTransient
+    @JsonbTransient
     public Department getParent() {
         return parent;
     }

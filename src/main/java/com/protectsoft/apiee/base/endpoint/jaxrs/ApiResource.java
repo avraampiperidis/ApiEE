@@ -37,20 +37,20 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @GET   
     @Override
     public List<T> findAll() {
-        return super.findAll();
+        return super.baseFindAll();
     }
     
     @GET
     @Path("{id}")
     @Override
     public T find(@PathParam("id") Long id) {
-        return super.find(id);
+        return super.baseFind(id);
     }
 
     @POST
     @Override
     public Response create(@Context UriInfo ui, T entity) {
-        super.create(entity);
+        super.baseCreate(entity);
         return Response
                 .created(super.getNewPath(ui,entity))
                 .entity(entity)
@@ -61,14 +61,14 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @Path("{id}")
     @Override
     public Response edit(@PathParam("id") Long id, T entity) {
-        return Response.ok(super.implementEdit(id, entity)).build(); 
+        return Response.ok(super.baseEdit(id, entity)).build(); 
     }
 
     @DELETE
     @Path("{id}")
     @Override
     public Response remove(@PathParam("id") Long id) {
-        super.implementRemove(id);
+        super.baseRemove(id);
         return Response.noContent().build();
     }
 
@@ -76,14 +76,19 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @Path("{from}/{to}")
     @Override
     public List<T> findRange(@PathParam("from") Integer from,@PathParam("to") Integer to) {
-        return super.findRange(from, to); 
+        return super.baseFindRange(from, to); 
     }
     
     @POST
     @Path("search")
     @Override
     public List<T> search(@Context ContainerRequestContext ctx, JsonObject search_clauses) {
-        return super.search(ctx, search_clauses);
+        return super.baseSearch(ctx, search_clauses);
+    }
+    
+    @Override
+    public Integer count() {
+        return super.baseCount();
     }
     
 }

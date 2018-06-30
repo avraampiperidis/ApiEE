@@ -63,5 +63,7 @@ public class RepoAccess  {
         cq.select(em.getCriteriaBuilder().count(cq.from(clazz)));
         return ((Long) em.createQuery(cq).getSingleResult()).intValue();
     }
+
+    
     
 }

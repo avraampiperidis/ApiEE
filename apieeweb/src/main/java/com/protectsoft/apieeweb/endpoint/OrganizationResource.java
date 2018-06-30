@@ -5,8 +5,8 @@
  */
 package com.protectsoft.apieeweb.endpoint;
 
-import com.protectsoft.apiee.base.endpoint.ApiResource;
-import com.protectsoft.apiee.base.endpoint.ApiSubResource;
+import com.protectsoft.apiee.base.endpoint.jaxrs.ApiResource;
+import com.protectsoft.apiee.base.endpoint.jaxrs.ApiSubResource;
 import com.protectsoft.apieeweb.boundary.OrganizationFacade;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.Organization;
@@ -33,5 +33,7 @@ public class OrganizationResource extends ApiResource<Organization> {
     public ApiSubResource subResource(@PathParam("id") Long id) {
         return new ApiSubResource<Organization,Department>(id,getService(),Department.class) {};
     }
+
+   
     
 }

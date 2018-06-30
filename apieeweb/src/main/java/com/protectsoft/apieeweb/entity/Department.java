@@ -9,6 +9,8 @@ import com.protectsoft.apiee.core.transformation.Transform;
 import com.protectsoft.apiee.core.annotations.TransformBean;
 import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
 import java.util.List;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
@@ -21,13 +23,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -36,12 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "DEPARTMENTS")
-@XmlRootElement()
-@NamedQueries({
-    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
-})
+@NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
 public class Department extends BaseEntityAUTO implements Transform   {
-    
     
     @Embedded
     @AttributeOverrides({
@@ -79,6 +75,7 @@ public class Department extends BaseEntityAUTO implements Transform   {
      * @return the employees
      */
     @XmlTransient
+    @JsonbTransient
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -94,11 +91,13 @@ public class Department extends BaseEntityAUTO implements Transform   {
      * @return the organization
      */
     @XmlTransient
+    @JsonbTransient
     public Organization getOrganization() {
         return organization;
     }
     
     @XmlElement(name = "organization")
+    @JsonbProperty("organization")
     public Long getOrganizationId() {
         return organization.getId();
     }
@@ -114,6 +113,7 @@ public class Department extends BaseEntityAUTO implements Transform   {
      * @return the childs
      */
     @XmlTransient
+    @JsonbTransient
     public List<Department> getChilds() {
         return childs;
     }

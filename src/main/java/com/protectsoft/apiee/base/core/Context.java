@@ -1,8 +1,6 @@
 package com.protectsoft.apiee.base.core;
 
 import com.protectsoft.apiee.base.entities.BaseEntity;
-import com.protectsoft.apiee.core.exceptions.BusinessTierException;
-import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
 import com.protectsoft.apiee.util.ApiUtils;
 import com.protectsoft.apiee.core.masterdetail.MasterDetail;
 import com.protectsoft.apiee.core.masterdetail.MasterDetailFunction;
@@ -12,8 +10,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import com.protectsoft.apiee.core.masterdetail.OneToOneFunction;
-import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
 
 /**
  *
