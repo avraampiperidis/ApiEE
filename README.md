@@ -19,8 +19,16 @@ jax-rs,CDI,EJB,JPA2 <br>
 - [ ] Support Hibernate and Eclipselink
 - [ ] Support Spring
 - [ ] Documentation/api
-- [ ] Publish on maven central
+- [x] Publish on maven central
 
+Maven 
+``` maven
+<dependency>
+      <groupId>com.protectsoft</groupId>
+      <artifactId>apiee</artifactId>
+      <version>0.3</version>
+ </dependency>
+```
 
 <b>
 * The following code examples are from my draft/working version witch<br>
@@ -32,6 +40,7 @@ and what it is already doing.<br>
 # TODO List and preview . <br>
 <br>
 ## A fast top-down preview ,with two examples
+* * <b>Your StartUp class must extend BaseConfig for provider registration</b>
 #### Entities
 * All entities must extend BaseEntityAUTO or BaseEntitySequence class. <br>
 * BaseEntityAUTO it excepts an auto increment id. <br>
@@ -46,6 +55,7 @@ This entity has some properties the framework provides which is
 * will be used later in the examples. <br>
 ```java
 @Entity
+@XmlRootElement
 @Table(name = "DEPARTMENTS")
 @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
 public class Department extends BaseEntityAUTO implements Transform   {
