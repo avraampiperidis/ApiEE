@@ -39,7 +39,7 @@ and what it is already doing.<br>
 </b> <br>
 # TODO List and preview . <br>
 <br>
-## A fast top-down preview ,with two examples
+## A fast top-down preview ,with two examples <br>
 * * <b>Your StartUp class must extend BaseConfig for provider registration</b>
 #### Entities
 * All entities must extend BaseEntityAUTO or BaseEntitySequence class. <br>
