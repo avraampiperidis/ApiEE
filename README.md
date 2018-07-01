@@ -40,9 +40,15 @@ and what it is already doing.<br>
 # TODO List and preview . <br>
 <br>
 ## A fast top-down preview ,with two examples <br>
+#### Entities
+* All entities must extend BaseEntityAUTO or BaseEntitySequence class. <br>
+* BaseEntityAUTO it excepts an auto increment id. <br>
+* BaseEntitySequence it  excepts a sequence generator for the id.<br>
+* The primary id name of the tables must by id type Long. <br>
+
 * * <b>Your StartUp class must extend BaseConfig for provider registration</b> <br>
 for example <br>
-``` java
+```java
 @ApplicationPath("api")
 public class Startup extends BaseConfig {  
     public Startup() {
@@ -50,11 +56,6 @@ public class Startup extends BaseConfig {
     }
 }
 ```
-#### Entities
-* All entities must extend BaseEntityAUTO or BaseEntitySequence class. <br>
-* BaseEntityAUTO it excepts an auto increment id. <br>
-* BaseEntitySequence it  excepts a sequence generator for the id.<br>
-* The primary id name of the tables must by id type Long. <br>
 
 ###### Example Entity Class
 A vert simple and minimalistic entity class and its relations. <br>
