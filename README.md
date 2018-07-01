@@ -10,7 +10,7 @@ jax-rs,CDI,EJB,JPA2 <br>
 - [x] Basic junit tests/iTtests
 - [x] Create on details (1t1,1tM,MtM)
 - [x] Edit/Delete on details 
-- [x] Support xml.bind(JAXB) and Jsonb(JSR 367) for JavaEE 7 and JavaEE 8
+- [x] Support xml.bind(JAXB) for JavaEE 7 and Jsonb(JSR 367) for JavaEE 8
 - [ ] IT Test CRUD Master/Details
 - [ ] Test @Transform/TransformRelation
 - [ ] Generic Base Search with Criteria Api
@@ -308,9 +308,10 @@ a <b>GET</b> at ```departments/1/employees```
 And we get the a list with the employee with just created.
 <br>
 Now lets suppose we want a department for the SubDepartment.
-We can do that following the same logic.
-a <b>POST</b> at ```departments/2/departments/1/departments``` <br>
-and body data. without specifying any parent department
+We can do that following the same logic.<br>
+A <b>POST</b> at ```departments/2/departments/1/departments``` <br>
+and body data. without specifying any parent department.<br>
+We also specifying the id of the Organization this department belongs
 ```json
 {
     "embDept": {
