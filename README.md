@@ -42,7 +42,7 @@ and what it is already doing.<br>
 ## A fast top-down preview ,with two examples <br>
 * * <b>Your StartUp class must extend BaseConfig for provider registration</b> <br>
 for example <br>
-```java
+``` java
 @ApplicationPath("api")
 public class Startup extends BaseConfig {  
     public Startup() {
