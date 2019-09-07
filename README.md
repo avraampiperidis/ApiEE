@@ -39,7 +39,7 @@ and what it is already doing.<br>
  
 ## A fast top-down preview ,with two examples 
 
-* * <b>Your StartUp class must extend BaseConfig for provider registration</b> <br>
+* <b>Your StartUp class must extend BaseConfig for provider registration</b> <br>
 for example <br>
 ```java
 @ApplicationPath("api")
