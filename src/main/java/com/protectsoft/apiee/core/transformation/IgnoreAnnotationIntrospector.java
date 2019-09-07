@@ -1,6 +1,6 @@
 package com.protectsoft.apiee.core.transformation;
 
-import com.protectsoft.apiee.core.annotations.TransformBean;
+import com.protectsoft.apiee.annotations.TransformBean;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 

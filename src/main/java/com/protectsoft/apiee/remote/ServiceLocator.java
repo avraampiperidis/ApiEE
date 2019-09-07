@@ -13,8 +13,6 @@ import javax.naming.NamingException;
  * object utilizes significant resources. 
  * If multiple clients repeatedly require the same bean home object, 
  * uch duplicate effort can negatively impact application performance.
- * 
- *
  */
 public class ServiceLocator {
     

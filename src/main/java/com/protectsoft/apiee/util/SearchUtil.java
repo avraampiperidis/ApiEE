@@ -1,6 +1,6 @@
 package com.protectsoft.apiee.util;
 
-import com.protectsoft.apiee.base.entities.BaseEntity;
+import com.protectsoft.apiee.entities.BaseEntity;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

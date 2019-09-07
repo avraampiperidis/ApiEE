@@ -1,7 +1,7 @@
 package com.protectsoft.apiee.core.transformation;
 
-import com.protectsoft.apiee.base.endpoint.BaseEntityTransformationProvider;
-import com.protectsoft.apiee.core.annotations.TransformBean;
+import com.protectsoft.apiee.core.endpoint.BaseEntityTransformationProvider;
+import com.protectsoft.apiee.annotations.TransformBean;
 import com.protectsoft.apiee.util.ApiUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

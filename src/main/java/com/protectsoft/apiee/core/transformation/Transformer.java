@@ -1,6 +1,6 @@
 package com.protectsoft.apiee.core.transformation;
 
-import com.protectsoft.apiee.base.core.RepoAccess;
+import com.protectsoft.apiee.core.RepoAccess;
 import javax.json.JsonObject;
 
 /**
@@ -16,6 +16,7 @@ public final class Transformer {
     
     private Transformer() {}
     
+    // double check lock
     public static Transformer getTransformer() {
         if(transformer == null) {
             synchronized(Transformer.class) {
@@ -48,7 +49,7 @@ public final class Transformer {
          if(getRelation() == null || getJson() == null  || getRepo() == null){
             throw new NullPointerException("getRelation() == null || getJson() == null  || repo == null cannot be null");
         }
-        new Builder(this).build();
+        new UnmarshallerBuilder(this).build();
     }
     
 

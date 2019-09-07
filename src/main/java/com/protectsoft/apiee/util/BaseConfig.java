@@ -13,9 +13,9 @@ public class BaseConfig extends ResourceConfig  {
     public BaseConfig() {
          super();
          register(JacksonJaxbJsonProvider.class);
-         packages("com.protectsoft.apiee.base.endpoint;" 
-                + "com.protectsoft.apiee.core.exceptions.providers;" 
-                + "com.protectsoft.apiee.base.endpoint.jaxrs;" 
+         packages("com.protectsoft.apiee.core.endpoint;" 
+                + "com.protectsoft.apiee.exceptions.providers;" 
+                + "com.protectsoft.apiee.endpoint.jaxrs;" 
          );
     }
         

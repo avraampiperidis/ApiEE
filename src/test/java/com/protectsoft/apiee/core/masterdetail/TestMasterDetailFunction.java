@@ -1,5 +1,7 @@
 package com.protectsoft.apiee.core.masterdetail;
 
+import com.protectsoft.apiee.masterdetail.MasterDetailFunction;
+import com.protectsoft.apiee.masterdetail.MoveOption;
 import com.protectsoft.apiee.core.MyMock;
 import com.protectsoft.apiee.core.MyMock.MockEntityChild;
 import com.protectsoft.apiee.core.MyMock.MockEntityChild2;

@@ -1,6 +1,12 @@
 package com.protectsoft.apiee.core.masterdetail;
 
-import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
+import com.protectsoft.apiee.masterdetail.MasterDetailFunction;
+import com.protectsoft.apiee.masterdetail.MasterDetail;
+import com.protectsoft.apiee.masterdetail.MoveOption;
+import com.protectsoft.apiee.masterdetail.OneToManyFunction;
+import com.protectsoft.apiee.masterdetail.OneToOneFunction;
+import com.protectsoft.apiee.masterdetail.RelationType;
+import com.protectsoft.apiee.entities.BaseEntityAUTO;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
