@@ -36,10 +36,11 @@ and what it is already doing.<br>
 * See Sample project (apieeweb) witch contains all the examples <br>
 * This framework is NOT completed yet! It's in Working progress
  <br>
-# TODO List and preview . <br>
-<br>
-## A fast top-down preview ,with two examples <br>
+ 
+# TODO List and preview . 
+## A fast top-down preview ,with two examples 
 #### Entities
+
 * All entities must extend BaseEntityAUTO or BaseEntitySequence class. <br>
 * BaseEntityAUTO it excepts an auto increment id. <br>
 * BaseEntitySequence it  excepts a sequence generator for the id.<br>
