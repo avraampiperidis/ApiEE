@@ -30,13 +30,12 @@ Maven
  </dependency>
 ```
 
-<b>
 * The following code examples are from my draft/working version witch<br>
 * Also these samples are ment to show what the framework is about
 and what it is already doing.<br>
 * See Sample project (apieeweb) witch contains all the examples <br>
 * This framework is NOT completed yet! It's in Working progress
-</b> <br>
+ <br>
 # TODO List and preview . <br>
 <br>
 ## A fast top-down preview ,with two examples <br>
