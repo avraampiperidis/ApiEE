@@ -36,7 +36,9 @@ and what it is already doing.<br>
 * See Sample project (apieeweb) witch contains all the examples <br>
 * This framework is NOT completed yet! It's in Working progress
  <br>
+ 
 ## A fast top-down preview ,with two examples 
+
 * * <b>Your StartUp class must extend BaseConfig for provider registration</b> <br>
 for example <br>
 ```java
