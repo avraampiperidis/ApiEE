@@ -50,7 +50,6 @@ public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends Ba
         if(super.getDetail() != null){
             throw new EntityExistsException();
         }
-        
         return Response
                 .created(getNewPath(ui,super.create(entity)))
                 .entity(entity)
@@ -66,8 +65,7 @@ public abstract class ApiOneToOneSubResource<M extends BaseEntity, D  extends Ba
     
     @PUT
     public Response edit(D entity) {
-        D db = super.getDetail();
-        return Response.ok(super.implementEdit(db.getId(), entity)).build();
+        return Response.ok(super.implementEdit(super.getDetail().getId(), entity)).build();
     }
     
     @GET

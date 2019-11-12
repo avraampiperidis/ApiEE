@@ -33,8 +33,16 @@ import javax.ws.rs.ext.Provider;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BaseEntityTransformationProvider implements MessageBodyReader<Transform> {
     
-    @Inject
     private RepoAccess repo; 
+    
+    public BaseEntityTransformationProvider() {
+    }
+    
+    @Inject
+    public BaseEntityTransformationProvider(RepoAccess r) {
+        this();
+        this.repo = r;
+    }
     
     @Override
     public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
@@ -42,7 +50,8 @@ public class BaseEntityTransformationProvider implements MessageBodyReader<Trans
     }
 
     @Override
-    public Transform readFrom(Class<Transform> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
+    public Transform readFrom(Class<Transform> type, Type genericType, Annotation[] annotations, MediaType mediaType, 
+            MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.WRAP_EXCEPTIONS, true);

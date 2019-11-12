@@ -52,4 +52,6 @@ public abstract class BaseEntity implements Serializable  {
         return null!=field ? field.getId() : null;
     }
     
+    
+    
 }

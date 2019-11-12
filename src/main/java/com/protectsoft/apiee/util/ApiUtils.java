@@ -50,5 +50,4 @@ public class ApiUtils {
         return isClassInstance(clazz,targetClass.getSuperclass());
     }
     
-   
 }

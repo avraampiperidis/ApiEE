@@ -50,7 +50,7 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
     @POST
     @Override
     public Response create(@Context UriInfo ui, T entity) {
-        super.baseCreate(entity);
+        entity = super.baseCreate(entity);
         return Response
                 .created(super.getNewPath(ui,entity))
                 .entity(entity)

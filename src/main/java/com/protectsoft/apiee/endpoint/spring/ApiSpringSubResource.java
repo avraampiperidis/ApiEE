@@ -38,8 +38,7 @@ public class ApiSpringSubResource<M extends BaseEntity, D  extends BaseEntity>
     @RequestMapping(method = RequestMethod.POST)
     @Override
     public ResponseEntity<D> createEntity(@RequestBody D entity) {
-        super.create(entity);
-        return ResponseEntity.created(super.getNewPathSpring(entity))
+        return ResponseEntity.created(super.getNewPathSpring(super.create(entity)))
                 .build();
     }
     

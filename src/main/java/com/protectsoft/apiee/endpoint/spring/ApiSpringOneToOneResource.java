@@ -42,8 +42,7 @@ public class ApiSpringOneToOneResource<M extends BaseEntity, D  extends BaseEnti
         if(super.getDetail() != null){
             throw new EntityExistsException();
         }
-        super.create(entity);
-        return ResponseEntity.created(super.getNewPathSpring(entity))
+        return ResponseEntity.created(super.getNewPathSpring(super.create(entity)))
                 .build();
     }
     
@@ -55,8 +54,7 @@ public class ApiSpringOneToOneResource<M extends BaseEntity, D  extends BaseEnti
     
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<D> edit(@RequestBody D entity) {
-        D db = super.getDetail();
-        return ResponseEntity.ok(super.implementEdit(db.getId(), entity));
+        return ResponseEntity.ok(super.implementEdit(super.getDetail().getId(), entity));
     }
     
     

@@ -4,8 +4,8 @@ package com.protectsoft.apiee.util;
 import java.util.List;
 
 /**
- *
  * @param <T>
+ * For paging
  */
 public class PagedList<T> {
     

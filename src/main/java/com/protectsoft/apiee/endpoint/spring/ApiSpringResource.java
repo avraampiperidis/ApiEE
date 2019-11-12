@@ -29,10 +29,9 @@ public class ApiSpringResource<T extends BaseEntity> extends BaseResource<T> imp
 
     @RequestMapping(method = RequestMethod.POST)
     @Override
-    public ResponseEntity<T> createEntity(@RequestBody T entity) {
-        super.baseCreate(entity);
+    public ResponseEntity<T> createEntity(@RequestBody T entity) {  
         return ResponseEntity
-                .created(super.getNewPathSpring(entity))
+                .created(super.getNewPathSpring(super.baseCreate(entity)))
                 .body(entity);
     }
     

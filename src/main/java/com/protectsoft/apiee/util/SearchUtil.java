@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonString;
@@ -45,9 +46,9 @@ public class SearchUtil {
                             .stream().map((js) -> js.getString())
                             .filter((s) -> (s.startsWith("+") || s.startsWith("-")))
                             .map((s) -> {
-                        SortBundle sortBundle = new SortBundle();
-                        sortBundle.asc = s.startsWith("+");
-                        sortBundle.field =  s.substring(1);
+                                SortBundle sortBundle = new SortBundle();
+                                sortBundle.asc = s.startsWith("+");
+                                sortBundle.field =  s.substring(1);
                                         return sortBundle;
                                     }).forEachOrdered((sortBundle) -> {
                                         sortBundles.add(sortBundle);
@@ -70,8 +71,7 @@ public class SearchUtil {
         if(!sortBundles.isEmpty()){
             GenericComparator comparator = new GenericComparator(sortBundles.get(0).field,sortBundles.get(0).asc);
             for(int i =1; i < sortBundles.size(); i++){
-                GenericComparator gc = new GenericComparator(sortBundles.get(i).field,sortBundles.get(i).asc);
-                comparator.thenComparing(gc);
+                comparator.thenComparing(new GenericComparator(sortBundles.get(i).field,sortBundles.get(i).asc));
             }
             Collections.sort(res,comparator);
         }
@@ -103,21 +103,19 @@ public class SearchUtil {
                 )
                 { 
                     if(isMethodNumber(method)){                       
-                        try {
-                            Object term = extractJsonValue(name,json);                                                    
-                            Object val = method.invoke(d);
-                            if(term.toString().equals(val.toString())  && !res.contains(d)){
+                        try {             
+                            if(extractJsonValue(name,json).toString().equals(method.invoke(d).toString())  && !res.contains(d)){
                                 res.add((D) d);
                             }
                         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                            //LOG
                         }
                     break;    
                     } else if(method.getReturnType() == String.class){                       
                         try {
-                            String term = (String)extractJsonValue(name,json);
                             String value = (String) method.invoke(d);
                             if(value != null && !value.isEmpty()){
-                                if(!res.contains(d) && value.contains(term)){
+                                if(!res.contains(d) && value.contains((String)extractJsonValue(name,json))){
                                     res.add((D)d);
                                 }
                             }
@@ -128,9 +126,8 @@ public class SearchUtil {
                        || method.getReturnType() == Boolean.class
                      ){                                               
                      try {
-                        boolean state = (Boolean)extractJsonValue(name,json);
-                        boolean value = (Boolean)method.invoke(d);
-                        if(value == state && !res.contains(d)){
+                        if(Objects.equals((Boolean)method.invoke(d), (Boolean)extractJsonValue(name,json)) 
+                                && !res.contains(d)){
                             res.add((D)d);
                         }
                     } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
