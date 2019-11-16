@@ -5,7 +5,7 @@
  */
 package com.protectsoft.apieeweb.entity;
 
-import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
+import com.protectsoft.apiee.entities.BaseEntityAUTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;

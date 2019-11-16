@@ -5,11 +5,11 @@
  */
 package com.protectsoft.apieeweb.boundary;
 
-import com.protectsoft.apiee.base.core.Api;
-import com.protectsoft.apiee.core.masterdetail.ManyToManyFunction;
-import com.protectsoft.apiee.core.masterdetail.MoveOption;
-import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
-import com.protectsoft.apiee.core.masterdetail.OneToOneFunction;
+import com.protectsoft.apiee.core.Api;
+import com.protectsoft.apiee.masterdetail.ManyToManyFunction;
+import com.protectsoft.apiee.masterdetail.MoveOption;
+import com.protectsoft.apiee.masterdetail.OneToManyFunction;
+import com.protectsoft.apiee.masterdetail.OneToOneFunction;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.DepartmentInfo;
 import com.protectsoft.apieeweb.entity.Employee;

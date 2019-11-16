@@ -5,8 +5,8 @@
  */
 package com.protectsoft.apieeweb.endpoint;
 
-import com.protectsoft.apiee.base.endpoint.jaxrs.ApiResource;
-import com.protectsoft.apiee.base.endpoint.jaxrs.ApiSubResource;
+import com.protectsoft.apiee.endpoint.jaxrs.ApiResource;
+import com.protectsoft.apiee.endpoint.jaxrs.ApiSubResource;
 import com.protectsoft.apieeweb.boundary.OrganizationFacade;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.Organization;

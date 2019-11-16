@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.protectsoft</groupId>
             <artifactId>apiee</artifactId>
-            <version>0.2</version>
+            <version>0.3</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>

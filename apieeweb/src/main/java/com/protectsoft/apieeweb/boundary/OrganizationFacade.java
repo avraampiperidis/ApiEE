@@ -5,9 +5,10 @@
  */
 package com.protectsoft.apieeweb.boundary;
 
-import com.protectsoft.apiee.base.core.Api;
-import com.protectsoft.apiee.core.masterdetail.MoveOption;
-import com.protectsoft.apiee.core.masterdetail.OneToManyFunction;
+
+import com.protectsoft.apiee.core.Api;
+import com.protectsoft.apiee.masterdetail.MoveOption;
+import com.protectsoft.apiee.masterdetail.OneToManyFunction;
 import com.protectsoft.apieeweb.entity.Department;
 import com.protectsoft.apieeweb.entity.Organization;
 import java.util.List;
