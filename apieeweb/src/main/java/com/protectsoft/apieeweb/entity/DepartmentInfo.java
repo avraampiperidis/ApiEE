@@ -5,9 +5,9 @@
  */
 package com.protectsoft.apieeweb.entity;
 
-import com.protectsoft.apiee.base.entities.BaseEntityAUTO;
-import com.protectsoft.apiee.core.annotations.TransformBean;
+import com.protectsoft.apiee.annotations.TransformBean;
 import com.protectsoft.apiee.core.transformation.Transform;
+import com.protectsoft.apiee.entities.BaseEntityAUTO;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;

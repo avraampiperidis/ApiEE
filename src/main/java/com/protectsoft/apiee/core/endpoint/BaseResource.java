@@ -1,6 +1,7 @@
 
 package com.protectsoft.apiee.core.endpoint;
 
+import com.protectsoft.apiee.annotations.Refactor;
 import com.protectsoft.apiee.core.Api;
 import com.protectsoft.apiee.entities.BaseEntity;
 import com.protectsoft.apiee.exceptions.EntityNotExists;
@@ -13,11 +14,16 @@ import javax.ws.rs.container.ContainerRequestContext;
  *
  * @param <T> .
  */
+@Refactor
 public abstract class BaseResource<T extends BaseEntity>  extends Resource<T> {
     
         
     public BaseResource(Api<T> t) {
         super(t);
+    }
+    
+    public BaseResource(Object service) {
+        super(service);
     }
     
     public List<T> baseFindAll() {

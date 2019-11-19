@@ -1,5 +1,6 @@
 package com.protectsoft.apiee.core.endpoint;
 
+import com.protectsoft.apiee.annotations.Refactor;
 import com.protectsoft.apiee.core.Api;
 import com.protectsoft.apiee.core.Relation;
 import com.protectsoft.apiee.entities.BaseEntity;
@@ -12,10 +13,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author Abraham Piperidis
  * @param <T>
  */
+@Refactor
 public abstract class Resource<T extends BaseEntity>   {
     
     private final Api<T> service;
     private Relation<T> relation;
+    
+    Resource(Object service) {
+        this.service = (Api<T>)service;
+    }
     
     Resource(Api<T> service) {
         this.service = service;
@@ -30,6 +36,10 @@ public abstract class Resource<T extends BaseEntity>   {
     public Api<T> getService() {
         return this.service;
     }
+    
+//    public X getServiceImpl() {
+//        return (X) this.service;
+//    }
     
     public Relation<T> getRelation() {
         return this.relation;

@@ -1,5 +1,6 @@
 package com.protectsoft.apiee.core;
 
+import com.protectsoft.apiee.core.MyMock.IService;
 import com.protectsoft.apiee.core.MyMock.MockEntityChild;
 import com.protectsoft.apiee.core.MyMock.MockEntityParent;
 import com.protectsoft.apiee.core.MyMock.MockFacadeChild;
@@ -19,6 +20,7 @@ public class TestApiMasterDetail {
     private MockFacadeParent parent;
     private MockFacadeChild child;
     private MockFacadeChild child2;
+    private IService myService;
     
     
     @Before
@@ -30,6 +32,7 @@ public class TestApiMasterDetail {
         },child, MoveOption.ORPHANS_ALLOWED);
         parent.addChildDetail(MockEntityParent.class,MockEntityChild.class, new MasterDetailFunction<MockEntityParent, MockEntityChild>() {
         },child2, MoveOption.ORPHANS_ALLOWED);
+        myService =  new MockFacadeChild();
     }
     
     

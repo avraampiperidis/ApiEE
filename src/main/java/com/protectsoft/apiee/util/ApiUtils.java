@@ -40,14 +40,14 @@ public class ApiUtils {
      * @param targetClass 
      * @return 
      */
-    public static boolean isClassInstance(Class clazz,Class targetClass) {
+    public static boolean isClassTypeOf(Class clazz,Class targetClass) {
         if(clazz.equals(targetClass)) {
             return true;
         }
         if(clazz.equals(Object.class)) {
             return false;
         }
-        return isClassInstance(clazz,targetClass.getSuperclass());
+        return isClassTypeOf(clazz,targetClass.getSuperclass());
     }
     
 }

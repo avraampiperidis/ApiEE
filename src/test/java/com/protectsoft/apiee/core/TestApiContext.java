@@ -13,7 +13,7 @@ public class TestApiContext {
     
     @Test
     public void testApiFacadeInstance() {
-        new Api(BaseEntityAUTO.class) {};
+        new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
     }
     
     @Test(expected = RuntimeException.class)
@@ -23,7 +23,7 @@ public class TestApiContext {
     
     @Test
     public void testApiFacadeEntityConstraint2() {
-        new Api(BaseEntitySequence.class) {};
+        new Api<BaseEntitySequence>(BaseEntitySequence.class) {};
     }
     
     @Test

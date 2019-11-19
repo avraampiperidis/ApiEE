@@ -5,6 +5,7 @@ import com.protectsoft.apiee.util.ApiUtils;
 import com.protectsoft.apiee.masterdetail.MasterDetail;
 import com.protectsoft.apiee.masterdetail.MasterDetailFunction;
 import com.protectsoft.apiee.masterdetail.MoveOption;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,20 +20,32 @@ import javax.persistence.EntityManager;
 public abstract class Context<T extends BaseEntity> implements IContext<T> {
       
     @Inject
-    private RepoAccess repo; 
-            
-    private final Class<T> entityClass;
-    
-    private final List<Pair<MasterDetail,Api<?>>> childs;
+    private RepoAccess repo;
+    private Class<T> entityClass;
+    private List<Pair<MasterDetail,Api<?>>> childs;
     private Api<T> parent;
+        
+    Context(Class<T> clazz) {
+        this.init(clazz);
+    }
     
-    Context(Class<T> clazz) {     
-        if(!ApiUtils.isClassInstance(BaseEntity.class,clazz)) {
+    Context() {
+        this.init((Class<T>)((ParameterizedType) getClass()
+                  .getGenericSuperclass()).getActualTypeArguments()[0]);
+    }
+    
+    private final void init(Class<T> clazz) {
+        if(!ApiUtils.isClassTypeOf(BaseEntity.class,clazz)) {
             throw new RuntimeException("Class must be type of BaseEntity or any subclass");
         }
         this.childs = new ArrayList<>();
         this.setParent();
         this.entityClass = clazz;
+    }
+    
+    Class<T> convert() {
+         return (Class<T>)((ParameterizedType) getClass()
+                  .getGenericSuperclass()).getActualTypeArguments()[0];
     }
     
     abstract void setParent();

@@ -7,6 +7,7 @@ import com.protectsoft.apiee.interfaces.IValidation;
 import com.protectsoft.apiee.util.PagedList;
 import com.protectsoft.apiee.exceptions.EntityException;
 import com.protectsoft.apiee.exceptions.EntityNotExists;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Objects;
 import javax.json.JsonObject;
@@ -19,11 +20,13 @@ import javax.json.JsonObject;
  */
 public abstract class Api<T extends BaseEntity> extends Context<T>  implements IRepository<T> , IValidation<T,T> {
     
-    
     public Api(Class<T> clazz) {
         super(clazz);
     }
     
+    public Api() {
+        super();
+    }
     
     @Override
     public Api<T> getService() {

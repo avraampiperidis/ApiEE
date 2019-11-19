@@ -5,7 +5,7 @@
  */
 package com.protectsoft.apieeweb.boundary;
 
-import com.protectsoft.apiee.base.core.Api;
+import com.protectsoft.apiee.core.Api;
 import com.protectsoft.apieeweb.entity.DepartmentInfo;
 import javax.ejb.Stateless;
 

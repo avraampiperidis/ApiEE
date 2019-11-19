@@ -5,7 +5,7 @@
  */
 package com.protectsoft.apieeweb.entity;
 
-import com.protectsoft.apiee.core.annotations.TransformBean;
+import com.protectsoft.apiee.annotations.TransformBean;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Embeddable;

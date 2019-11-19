@@ -15,8 +15,7 @@ import javax.naming.NamingException;
  * uch duplicate effort can negatively impact application performance.
  */
 public class ServiceLocator {
-    
-    
+        
     private static ServiceLocator sl;
     private InitialContext context = null;
     

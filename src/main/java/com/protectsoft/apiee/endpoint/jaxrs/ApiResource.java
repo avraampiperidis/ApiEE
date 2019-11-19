@@ -34,6 +34,10 @@ public abstract class ApiResource<T extends BaseEntity> extends BaseResource<T> 
        super(service);
     }
     
+    public ApiResource(Object service) {
+        super(service);
+    }
+    
     @GET   
     @Override
     public List<T> findAll() {

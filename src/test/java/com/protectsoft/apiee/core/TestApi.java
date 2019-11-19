@@ -17,7 +17,7 @@ public class TestApi {
     
     @Test
     public void testApi() {
-        Api api = new Api(BaseEntityAUTO.class) {};
+        Api<BaseEntityAUTO> api = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
         assertTrue(api.getChildDetails().isEmpty());
         assertEquals(BaseEntityAUTO.class,api.getEntityClass());
         assertTrue(!api.getEntitySimpleName().isEmpty());
@@ -39,7 +39,7 @@ public class TestApi {
     @Test
     public void testSetParent() {
         Api<BaseEntityAUTO> api = new Api<BaseEntityAUTO>(BaseEntityAUTO.class) {};
-        Api<BaseEntitySequence> parent = getMockApi(BaseEntitySequence.class);
+        Api<BaseEntitySequence> parent = getBaseEntitySequenceMockApi(BaseEntitySequence.class);
         assertTrue(parent.getChildDetails().isEmpty());
         parent.addChildDetail(null, null, null, api, null);
         assertTrue(!api.getParent().equals(api));
@@ -97,7 +97,7 @@ public class TestApi {
     }
     
     
-    private <T extends BaseEntity> Api<T> getMockApi(Class clazz) {
-        return new Api<T>(clazz) {};
+    private  Api<BaseEntitySequence> getBaseEntitySequenceMockApi(Class clazz) {
+        return new Api<BaseEntitySequence>(clazz) {};
     }
 }

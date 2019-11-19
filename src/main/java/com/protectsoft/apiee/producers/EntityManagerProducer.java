@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * Override methods for user defined producers
  */
 @ApplicationScoped
 public class EntityManagerProducer {

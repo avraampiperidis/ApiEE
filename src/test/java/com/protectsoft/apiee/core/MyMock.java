@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class MyMock {
     
+    public static interface IService {
+    }
     
     public static class MockEntityParent extends BaseEntityAUTO {
         private List<MockEntityChild> childs = new ArrayList<>();
@@ -114,20 +116,11 @@ public class MyMock {
             super(MockEntityParent.class);
         }
     }
-    public static class MockFacadeChild extends Api<MockEntityChild> {
-        public MockFacadeChild() {
-            super(MockEntityChild.class);
-        }
+    public static class MockFacadeChild extends Api<MockEntityChild> implements IService {
     }
     public static class MockFacadeChild2 extends Api<MockEntityChild2> {
-        public MockFacadeChild2() {
-            super(MockEntityChild2.class);
-        }
     }
     public static class MockFacadeOtherChild extends Api<MockEntityOtherChild> {
-        public MockFacadeOtherChild() {
-            super(MockEntityOtherChild.class);
-        }
     }
     
 }

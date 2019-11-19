@@ -46,7 +46,7 @@ public class BaseEntityTransformationProvider implements MessageBodyReader<Trans
     
     @Override
     public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-        return ApiUtils.isClassInstance(BaseEntity.class, type);
+        return ApiUtils.isClassTypeOf(BaseEntity.class, type);
     }
 
     @Override

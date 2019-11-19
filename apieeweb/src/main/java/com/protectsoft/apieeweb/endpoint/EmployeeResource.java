@@ -5,7 +5,7 @@
  */
 package com.protectsoft.apieeweb.endpoint;
 
-import com.protectsoft.apiee.base.endpoint.jaxrs.ApiResource;
+import com.protectsoft.apiee.endpoint.jaxrs.ApiResource;
 import com.protectsoft.apieeweb.boundary.EmployeeFacade;
 import com.protectsoft.apieeweb.entity.Employee;
 import javax.inject.Inject;
