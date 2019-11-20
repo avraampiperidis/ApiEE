@@ -70,7 +70,7 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     
     @Override
     public void validate(T entity) {
-        Validator.validate(entity);
+        CustomValidator.validate(entity);
     }
     
     @Override
@@ -103,7 +103,7 @@ public abstract class Api<T extends BaseEntity> extends Context<T>  implements I
     
     @Override
     public void validateUpdate(T db,T dao) {
-        Validator.validateUpdate(db,dao);
+        CustomValidator.validateUpdate(db,dao);
     }
     
     
