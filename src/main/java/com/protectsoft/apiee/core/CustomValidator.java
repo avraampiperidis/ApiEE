@@ -17,10 +17,9 @@ public class CustomValidator {
     static <T extends BaseEntity>  void validate(T entity) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = (Validator) factory.getValidator();
-        Set<?> cv = validator.validate(entity);
+        Set<? extends ConstraintViolation<?>> cv = validator.validate(entity);
         if (!cv.isEmpty()) { 
-            ConstraintViolationException cve = new ConstraintViolationException("", (Set<? extends ConstraintViolation<?>>) cv);
-           //throw new ConstraintViolationException(cv);
+           throw new ConstraintViolationException(cv);
         }
 
         if(!entity.isValid()) {

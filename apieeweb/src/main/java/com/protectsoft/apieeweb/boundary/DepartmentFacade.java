@@ -6,7 +6,7 @@
 package com.protectsoft.apieeweb.boundary;
 
 import com.protectsoft.apieeweb.AAA.DepartmentAnno;
-import com.protectsoft.apieeweb.AAA.IApi;
+import com.protectsoft.apiee.AAA.IApi;
 import com.protectsoft.apieeweb.entity.Department;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author piper
+ * @author piper 
  */
 @Stateless
 @DepartmentAnno

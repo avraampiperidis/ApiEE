@@ -15,22 +15,8 @@
         <skipTests>true</skipTests>
     </properties>
 
-    
-    
     <dependencyManagement>
-        <dependencies>
-            <!-- AOP -->
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>1.8.9</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>1.8.9</version>
-            </dependency>
-            
+        <dependencies>  
             <dependency>
                 <groupId>org.eclipse</groupId>
                 <artifactId>yasson</artifactId>
@@ -54,7 +40,7 @@
                 <version>5.0.5.RELEASE</version>
                 <scope>provided</scope>
             </dependency>
-             <dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>5.0.5.RELEASE</version>
@@ -92,7 +78,7 @@
                 <artifactId>javax.json</artifactId>
                 <version>1.0.4</version>
                 <scope>test</scope>
-             </dependency>
+            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -116,6 +102,17 @@
     
     
     <dependencies>
+        <!-- AOP -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.2</version>
+        </dependency>
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
@@ -158,7 +155,7 @@
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
             <scope>test</scope>
-         </dependency>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -181,29 +178,29 @@
     </dependencies>
     
     
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.17</version>
             </plugin>
             <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
             </plugin>
             <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <version>2.1.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <version>2.1.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -222,50 +219,48 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>        
-            <plugin>
+            </plugin>  
+              <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.10</version>
+                <version>1.8</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>1.8.2</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <complianceLevel>1.8</complianceLevel>
-                     <excludes>
-                         <exclude>com/protectsoft/apiee/core/CustomValidator.java</exclude>
-                     </excludes>
                     <source>1.8</source>
                     <target>1.8</target>
                     <showWeaveInfo>true</showWeaveInfo>
                     <verbose>true</verbose>
                     <Xlint>ignore</Xlint>
                     <encoding>UTF-8 </encoding>
-                </configuration>
-                <!-- Load-Time Weaving -->
-                <!--<configuration>
-                        <argLine>
-                            -javaagent:"${settings.localRepository}"/org/aspectj/
-                            aspectjweaver/${aspectj.version}/
-                            aspectjweaver-${aspectj.version}.jar
-                        </argLine>
-                        <useSystemClassLoader>true</useSystemClassLoader>
-                        <forkMode>always</forkMode>
-                    </configuration>
-                -->
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.aj</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/CustomValidator.java</exclude>
+                    </excludes>
+                </configuration>  
                 <executions>
                     <execution>
                         <goals>
-                            <!-- use this goal to weave all your main classes -->
                             <goal>compile</goal>
-                            <!-- use this goal to weave all your test classes -->
                             <goal>test-compile</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>   
+            </plugin>                 
         </plugins>
     </build>
     
-   <profiles>
-       <profile>
+    <profiles>
+        <profile>
             <id>arquillian-glassfish-embedded</id>
             <activation>
                 <activeByDefault>true</activeByDefault>

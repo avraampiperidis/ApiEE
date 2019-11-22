@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.protectsoft.apieeweb.AAA;
+package com.protectsoft.apiee.AAA;
 
 import com.protectsoft.apiee.entities.BaseEntity;
 
@@ -11,5 +11,5 @@ import com.protectsoft.apiee.entities.BaseEntity;
  *
  * @author piperidis.a
  */
-public interface IApi<T extends BaseEntity> {
+public interface IApiSubResource<M extends BaseEntity,D extends BaseEntity> {
 }

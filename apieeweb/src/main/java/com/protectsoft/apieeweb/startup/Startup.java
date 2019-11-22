@@ -16,7 +16,10 @@ import javax.ws.rs.ApplicationPath;
 public class Startup extends BaseConfig {
    
     public Startup() {
-        packages("com.protectsoft.apieeweb.endpoint;");       
+        packages("com.protectsoft.apieeweb.endpoint;");      
+        System.out.println("MAIN");
+        Storage s = new Storage();
+        s.increase();
     }
     
 }

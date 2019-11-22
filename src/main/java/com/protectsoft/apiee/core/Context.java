@@ -27,6 +27,7 @@ public abstract class Context<T extends BaseEntity> implements IContext<T> {
         
     Context(Class<T> clazz) {
         this.init(clazz);
+        
     }
     
     Context() {
