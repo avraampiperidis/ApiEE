@@ -4,15 +4,15 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-@ApplicationScoped
+//@ApplicationScoped
 public class CustomObjectMapperConfig {
-    @Singleton
-    @Produces
+    //@Singleton
+    //@Produces
     public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
+        //ObjectMapper objectMapper = new ObjectMapper();
         // perform configuration
-        return objectMapper;
+        //return objectMapper;
+        return null;
     }
 }
