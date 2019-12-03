@@ -9,7 +9,7 @@ import javax.enterprise.inject.Produces;
 public class CustomObjectMapperConfig {
     //@Singleton
     //@Produces
-    public ObjectMapper objectMapper() {
+    public Object /*ObjectMapper*/ objectMapper() {
         //ObjectMapper objectMapper = new ObjectMapper();
         // perform configuration
         //return objectMapper;
